@@ -100,7 +100,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                 <li>Modules</li>
                 <li>FV Info</li>
                 <li>GUID xref</li>
-                <li onclick="addFv()">Add FV</li>
+                <li id="uploadfile">Add FV</li>
                 <li onclick="deleteLiNode()">Clear</li>
                 <li>export</li>
                 <li>Raw Export</li>
@@ -123,12 +123,26 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     var fileObj = files[i].split(",")
                     createLayout(fileObj[0], fileObj[1], fileObj[0].split(".").pop())
                 }
-                // switch (message.filename){
-                //     case message.filename:
-                //         createLayout(message.filename, message.filepath, message.filename.split('.').pop())
-                //         break
-                // }
             });
+
+            // add fv click
+            $("#uploadfile").click(function() {
+                const myfile = $("#file")
+                myfile.click()
+
+                myfile.unbind().change(function (e){
+                    var files = e.target.files
+                    if (files.length){
+                        var fileString = []
+                        for (var i=0; i<files.length; i++){
+                            fileString.push(files[i].path)
+                        // post message to vscode
+                        vscode.postMessage({'filepath': fileString.join(";")})
+                        }
+                    }
+                })
+            })
+
 
             // main function
             window.onload = function() {
@@ -257,69 +271,6 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     list[i].remove()
                 }
             }
-
-            // Add fd, fv, ffs, sec
-            function addFv() {
-                var file = document.getElementById('file');
-                file.click();
-
-                // file.addEventListener("change", function(){
-                //     if (file.files.length){
-                //         for (var i=0; i<file.files.length; i++) {
-                //             var fileObj = file.files[0]
-                //             // runFmmt(fileObj.name, fileObj.path)
-                //             // post message to vscode
-                //             vscode.postMessage({'filename': fileObj.name, 'filepath':fileObj.path})
-            
-                //         }
-                //     } else {
-                //         console.log("Not choose file")
-                //     }
-                // })
-
-                // two method
-                file.addEventListener('change', (data) => {
-                    var files = data.target.files
-                    console.log(files)
-                    if (files.length) {
-                        var fileList = [];
-                        for (var i=0; i<files.length; i++){
-                            fileList.push(files[i].path)
-                        }
-                        vscode.postMessage({'files':fileList.join(';')})
-                    }
-                })
-            }
-
-            // function runFmmt(filename, file){
-            //     // post message to vscode
-            //     vscode.postMessage({'filename': filename, 'filepath':file})
-
-            //     // revice message from vscode
-            //     window.addEventListener('message', event => {
-            //         const message = event.data;
-            //         console.log('webview接收到的消息: '+message.filename)
-            //         switch (message.filename){
-            //             case filename:
-            //                 createLayout(filename, message.filepath, filename.split('.').pop())
-            //                 break
-            //         }
-            //       });
-            // }
-
-            function upload() {
-                var inputObj=document.createElement('input')
-                var id = GenNonDuplicateID()
-                inputObj.setAttribute('id',id);
-                inputObj.setAttribute('type','file');
-                inputObj.setAttribute('name','file');
-                inputObj.setAttribute("style",'visibility:hidden');
-                document.body.appendChild(inputObj);
-                inputObj.value;
-                inputObj.click();
-                console.log(inputObj);
-                return id;
-            } 
     
             // Generate random code
             function GenNonDuplicateID(){
@@ -407,7 +358,7 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
             panel.webview.onDidReceiveMessage(async message => {
                 console.log(message);
                 var resFiles = [];
-                var files = message.files.split(";");
+                var files = message.filepath.split(";");
                 for (let index = 0; index < files.length; index++) {
                     var fileName = path.basename(files[index]);
                     var filePath = path.join(path.dirname(path.dirname(__filename)), `./Layout_${fileName}.json`);
