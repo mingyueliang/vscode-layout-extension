@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as child_process from 'child_process';
 import * as path from 'path';
+import { resolve } from 'path';
 
 
 let webviewPanel = new Map();
@@ -306,22 +307,25 @@ module.exports =function(context: vscode.ExtensionContext){
  * @param sourceFilePath 
  * @param filePath 
  */
-async function showTermianl(sourceFilePath:string, filePath:string) {
-    fs.stat(sourceFilePath, function(err, stat) {
-        if (stat&&stat.isFile()){
-            console.log('json file is exist');
-        } else {
-            if (isLinuxOS() === true || isMacOS() === true){
-                pythonInterpreter = 'python3';
+function generateJsonFile(sourceFilePath:string, filePath:string) {
+    return new Promise((resolve)=>{
+        fs.stat(sourceFilePath, function(err, stat) {
+            if (stat&&stat.isFile()){
+                console.log('json file is exist');
+            } else {
+                if (isLinuxOS() === true || isMacOS() === true){
+                    pythonInterpreter = 'python3';
+                }
+                fmmtPath = path.join(path.dirname(__dirname), 'utils/FMMT2/FMMT.py');
+                var commands = `${pythonInterpreter} ${fmmtPath} -v ${filePath} -l json`;
+
+                // create process to run FMMT.py
+                let cwd = path.join(path.dirname(__dirname));
+                const output = child_process.execSync(commands, {cwd: cwd});
+                console.log(output.toString());
             }
-            fmmtPath = path.join(path.dirname(__dirname), 'utils/FMMT2/FMMT.py');
-            var commands = `${pythonInterpreter} ${fmmtPath} -v ${filePath} -l json`;
-            
-            // create process to run FMMT.py
-            let cwd = path.join(path.dirname(__dirname));
-            const output = child_process.execSync(commands, {cwd: cwd});
-            console.log(output.toString()); 
-        }
+            resolve("Success");
+        });
     });
 };
 
@@ -339,8 +343,7 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
         if (webviewPanel.get(outName)) {
           webviewPanel.get(outName).reveal(column);
         } else {
-            await showTermianl(sourceFilePath, filePath);
-            await sleep(2000);
+            await generateJsonFile(sourceFilePath, filePath);
             const panel = vscode.window.createWebviewPanel(
                 'ul',
                 outName,
@@ -367,8 +370,7 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
                 for (let index = 0; index < files.length; index++) {
                     var fileName = path.basename(files[index]);
                     var filePath = path.join(path.dirname(path.dirname(__filename)), `./Layout_${fileName}.json`);
-                    showTermianl(filePath, files[index]);
-                    await sleep(2000);
+                    await generateJsonFile(filePath, files[index]);
                     var onDiskPath = vscode.Uri.file(filePath);
                     resFiles.push(fileName + "," +panel.webview.asWebviewUri(onDiskPath).toString());
                 }
