@@ -107,7 +107,9 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                 <li onclick="deleteLiNode()">Clear</li>
             </ul>
         </div>
-        <div id="box"></div>
+        <div id="box">
+            <ul id="top"></ul>
+        </div>
         <input type="file" id="file" style="display:none" accept=".fd,.Fv, .fv,.ffs,.sec">
         
         <script type="text/javascript">
@@ -128,11 +130,11 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                 const myfile = $("#file")
                 myfile.click()
 
-                myfile.unbind().change(function (e){
+                myfile.unbind().change(function (e) {
                     var files = e.target.files
                     if (files.length){
                         var fileString = []
-                        for (var i=0; i<files.length; i++){
+                        for (var i=0; i<files.length; i++) {
                             fileString.push(files[i].path)
                         // post message to vscode
                         vscode.postMessage({'filepath': fileString.join(";")})
@@ -141,18 +143,25 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                 })
             })
 
+            // $(document).ready(function () {
+            //     $("#top").on('click', function (event) {
+            //         console.log("one......")
+            //     })
+            // })
+
 
             // main function
             window.onload = function() {
                 // create list
                 createLayout('${outName}', '${jsonPath}', '${fileType}')
-                // Set show or hide for ul.
-                showOrHideList('${outName}')
+                showOrHideList()
             }
 
+            // Realize collapsible list
             function showOrHideList(){
-                var ul = document.getElementById('box')
-                ul.onclick = function(e){
+                // var box = document.getElementById('box')
+                $(document).on('click', '#box', function (e){
+                    console.log("test......")
                     $(function () {
                         $("li:has(ul)").click(function(event) {
                             if (this == event.target) {
@@ -178,29 +187,28 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
             
                         $('li:has(ul)').css({
                             cursor: 'default',
-                            'list-style-image': 'url(${plusPath})'
+                            'list-style-image': 'url(${minuspath})'
                         })
                     })            
-                }
+
+                })
             }
 
-            function createLayout(className, jsonPath, fileType){
-                var fdbox = document.getElementById('box')
-                var fdul = document.createElement('ul')
-                fdul.setAttribute('class', className)
-                fdbox.appendChild(fdul)
-                var fdli = document.createElement('li')
+            function createLayout(className, jsonPath, fileType) {
+                var ul = document.getElementById('top')
+                var li = document.createElement('li')
                 var oneIdName = fileType + GenNonDuplicateID()
-                fdli.setAttribute('id', oneIdName)
-                fdul.appendChild(fdli)
+                li.setAttribute('id', oneIdName)
+                li.setAttribute('style', 'block')
+                ul.appendChild(li)
 
-                $.getJSON(jsonPath, function(result){
+                $.getJSON(jsonPath, function(result) {
                     if (result) {
                         var data = result[Object.keys(result)[0]]
-                        setInnerText(fdli, className + " Files=" + data['FilesNum']+" Type="+fileType)
+                        setInnerText(li, className + " Files=" + data['FilesNum']+" Type="+fileType)
                         
                         var fvul = document.createElement('ul')
-                        fdli.appendChild(fvul)
+                        li.appendChild(fvul)
                         fvul.setAttribute('id','ul')
                         // FV info
                         $.each(data['Files'], function(index, obj) {
@@ -213,13 +221,14 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                             var name = ''
                             if (fileType.search(/ffs/gi) !== -1) {
                                 name = 'UiName'
-                            } else if (fileType.search(/fd|fv/gi) !== -1){
+                            } else if (fileType.search(/fd|fv/gi) !== -1) {
                                 name = 'FvNameGuid'
                             }
                             if (fileType.search(/sec/gi !== -1)) {
                                 setInnerText(fvli, fvObj['Name']+' Size='+fvObj['Size']+' Offset='+fvObj['Offset']+' Files='+fvObj['FilesNum'])
+                            } else {
+                                setInnerText(fvli, fvObj['Name']+'('+fvObj[name]+')'+' Size='+fvObj['Size']+' Offset='+fvObj['Offset']+' Files='+fvObj['FilesNum'])
                             }
-                            setInnerText(fvli, fvObj['Name']+'('+fvObj[name]+')'+' Size='+fvObj['Size']+' Offset='+fvObj['Offset']+' Files='+fvObj['FilesNum'])
 
                             if (fvObj['Files'] === undefined) {
                                 return true
@@ -228,7 +237,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                             var ffsbox = document.getElementById(idName)
                             var ffsul = document.createElement('ul')
                             ffsbox.appendChild(ffsul)
-                            $.each(fvObj["Files"], function(ffsIndex, ffsObj){
+                            $.each(fvObj["Files"], function(ffsIndex, ffsObj) {
                                 ffsObj = ffsObj[Object.keys(ffsObj)[0]]
                                 var ffsli = document.createElement('li')
                                 var ffsIdName = GenNonDuplicateID()
@@ -244,7 +253,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                                 var secbox = document.getElementById(ffsIdName)
                                 var secul = document.createElement('ul')
                                 secbox.appendChild(secul)
-                                $.each(ffsObj["Files"], function(secIndex, secObj){
+                                $.each(ffsObj["Files"], function(secIndex, secObj) {
                                     secObj = secObj[Object.keys(secObj)[0]]
                                     var secli = document.createElement('li')
                                     secul.appendChild(secli)
@@ -268,8 +277,8 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
             } 
             // Clear all ul nodes in div (id='box').
             function deleteLiNode() {
-                var ul = document.querySelector('#box')
-                var list = ul.querySelectorAll('ul')
+                var ul = document.querySelector('#top')
+                var list = ul.querySelectorAll('li')
 
                 for (var i=0; i<list.length; i++) {
                     list[i].remove()
@@ -277,7 +286,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
             }
     
             // Generate random code
-            function GenNonDuplicateID(){
+            function GenNonDuplicateID() {
                 return Math.random().toString(36).substr(2)
             }
         </script>
