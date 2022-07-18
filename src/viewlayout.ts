@@ -143,12 +143,6 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                 })
             })
 
-            // $(document).ready(function () {
-            //     $("#top").on('click', function (event) {
-            //         console.log("one......")
-            //     })
-            // })
-
 
             // main function
             window.onload = function() {
@@ -159,11 +153,10 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
 
             // Realize collapsible list
             function showOrHideList(){
-                // var box = document.getElementById('box')
-                $(document).on('click', '#box', function (e){
-                    console.log("test......")
-                    $(function () {
-                        $("li:has(ul)").click(function(event) {
+                $(document).on('click', '#top', function (e){
+                    var lis = $("li:has(ul)")
+                    for (var index=0; index<lis.length; index++) {
+                        lis[index].addEventListener('click', function(event) {
                             if (this == event.target) {
                                 if ($(this).children().is(':hidden')){
                                     $(this)
@@ -177,29 +170,22 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                             }
                             return false
                         })
-                        .css('cursor', 'pointer')
-                        .click()
-            
-                        $('li:not(:has(ul))').css({
-                            cursor: 'default',
-                            'list-style-image': 'none'
-                        })
-            
-                        $('li:has(ul)').css({
-                            cursor: 'default',
-                            'list-style-image': 'url(${minuspath})'
-                        })
-                    })            
+                    }
 
+                    $('li:not(:has(ul))').css({
+                        cursor: 'default',
+                        'list-style-image': 'none'
+                    })
                 })
             }
 
+            // Create file layout
             function createLayout(className, jsonPath, fileType) {
                 var ul = document.getElementById('top')
                 var li = document.createElement('li')
                 var oneIdName = fileType + GenNonDuplicateID()
                 li.setAttribute('id', oneIdName)
-                li.setAttribute('style', 'block')
+                li.setAttribute('style', 'none')
                 ul.appendChild(li)
 
                 $.getJSON(jsonPath, function(result) {
