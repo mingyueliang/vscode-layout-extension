@@ -67,46 +67,60 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
         <title>fd</title>
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.5.1.min.js"></script>
         <style type="text/css">
-            .menu {
-                width: 1000px;
-                height: 25px;
+        .menu {
+            padding: 0;
+            height: 50px;
+            margin-block-end: 0;
+        }
 
-                font-size: 0;
+        .menu li{
+            display: inline-block;
+            float: left;
+            list-style: none;
+            font-size: 12px;
+            margin-right: -1px;
+            width: 70px;
+        }
 
-                list-style: none;
-                padding: 0;
-            }
+        .menu li:hover{
+            color:rgb(160, 29, 29);
+        }
 
-            .menu li{
-                display:inline-block;
-                width:70px;
-                height:50px;
-                font-size:12px;
+        .list {
+            padding:20px;
+            margin: 0px;
+        }
 
-                margin-right:-1px;
-                text-align:center;
-                line-height:48px;
-            }
+        #top {
+            padding:0;
+            margin-left:20px;
+        }
 
-            .menu li:hover{
-                color:rgb(160, 29, 29);
-            }
+        #menuBox {
+            border-style: solid;
+        }
 
-            .list {
-                padding:20px;
-                margin: 0px;
-            }
-        </style>
+        #box {
+            width: 100%;
+            height: 100%;
+            border-style:solid;
+        }
+
+    </style>
     </heaad>
     
     <body>
-        <div>
+        <div id="menuBox">
             <ul class="menu">
                 <li>FV Info</li>
-                <li id="uploadfile">Add FV</li>
+                <li id="uploadfile">Add FFS</li>
+                <li id="delete">Delete FFS</li>
+                <li>Replace FFS</li>
+                <li>Extract FFS</li>
                 <li onclick="deleteLiNode()">Clear</li>
             </ul>
         </div>
+
         <div id="box">
             <ul id="top"></ul>
         </div>
@@ -141,6 +155,37 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                         }
                     }
                 })
+            })
+
+            $("#delete").click(function (e) {
+                var input = document.createElement("input")
+                input.type="text"
+                input.id="fvname"
+                input.placeholder="Type Target FV Name"
+
+                document.getElementById('menuBox').append(input)
+
+                var name = document.createElement("input")
+                name.type="text"
+                name.id="ffsname"
+                name.placeholder="Type Target FFS Name"
+
+                document.getElementById('menuBox').append(name)
+
+                var button = document.createElement("input")
+                button.id="btn"
+                button.type="button"
+                button.value="ok"
+                button.onclick = function () {
+                    console.log("test......")
+                    console.log(document.getElementById("fvname").value)
+                    console.log(document.getElementById("ffsname").value)
+    
+                }
+                
+                document.getElementById('menuBox').append(button)
+
+
             })
 
 
