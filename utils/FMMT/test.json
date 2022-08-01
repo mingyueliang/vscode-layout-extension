@@ -1,0 +1,1759 @@
+{
+  "MAIN.fd": {
+    "Name": "MAIN.fd",
+    "Type": "ROOT",
+    "FilesNum": 4,
+    "Files": [
+      {
+        "FV0": {
+          "Name": "FV0",
+          "FvNameGuid": "1638673d-efe6-400b-951f-abac2cb31c60",
+          "Type": "FV",
+          "Attributes": "0x4feff",
+          "Size": "0x80000",
+          "FreeSize": "0xacc8",
+          "Offset": "0x0",
+          "FilesNum": 15,
+          "Files": [
+            {
+              "ffffffff-ffff-ffff-ffff-ffffffffffff": {
+                "Name": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+                "Type": "FFS_PAD",
+                "Size": "0x2c",
+                "Offset": "0x48",
+                "FilesNum": 0
+              }
+            },
+            {
+              "912740be-2284-4734-b971-84b027353f0c": {
+                "Name": "912740be-2284-4734-b971-84b027353f0c",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x94",
+                "Offset": "0x78",
+                "FilesNum": 1,
+                "Files": [
+                  {
+                    "EFI_SECTION_RAW": {
+                      "Name": "EFI_SECTION_RAW",
+                      "Type": "SECTION",
+                      "Size": "0x7c",
+                      "Offset": "0x90",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "d9093578-08eb-44df-b9d8-d0c1d3d55d96": {
+                "Name": "d9093578-08eb-44df-b9d8-d0c1d3d55d96",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x58",
+                "Offset": "0x110",
+                "FilesNum": 1,
+                "Files": [
+                  {
+                    "EFI_SECTION_RAW": {
+                      "Name": "EFI_SECTION_RAW",
+                      "Type": "SECTION",
+                      "Size": "0x40",
+                      "Offset": "0x128",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "e3cd9b18-998c-4f76-b65e-98b154e5446f": {
+                "Name": "e3cd9b18-998c-4f76-b65e-98b154e5446f",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0xa3",
+                "Offset": "0x168",
+                "FilesNum": 1,
+                "Files": [
+                  {
+                    "EFI_SECTION_RAW": {
+                      "Name": "EFI_SECTION_RAW",
+                      "Type": "SECTION",
+                      "Size": "0x8b",
+                      "Offset": "0x180",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "53ab1acd-edb1-4e3a-a2c7-978d721d179d": {
+                "Name": "53ab1acd-edb1-4e3a-a2c7-978d721d179d",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x480",
+                "Offset": "0x210",
+                "FilesNum": 2,
+                "Files": [
+                  {
+                    "EFI_SECTION_RAW": {
+                      "Name": "EFI_SECTION_RAW",
+                      "Type": "SECTION",
+                      "Size": "0x4",
+                      "Offset": "0x228",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x464",
+                      "Offset": "0x22c",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "86d70125-baa3-4296-a62f-602bebbb9081": {
+                "Name": "86d70125-baa3-4296-a62f-602bebbb9081",
+                "UiName": "DxeIpl",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0x5d0e",
+                "Offset": "0x690",
+                "FilesNum": 4,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x5e",
+                      "Offset": "0x6a8",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x5c74",
+                      "Offset": "0x708",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x12",
+                      "Offset": "0x637c",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0x6390",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "47ea2673-2533-4c07-aaba-69ce5a7c5d35": {
+                "Name": "47ea2673-2533-4c07-aaba-69ce5a7c5d35",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x5433",
+                "Offset": "0x63a0",
+                "FilesNum": 2,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x5e",
+                      "Offset": "0x63b8",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_GUID_DEFINED_SECTION": {
+                      "Name": "EFI_GUID_DEFINED_SECTION",
+                      "Type": "SECTION",
+                      "Size": "0x53bb",
+                      "DecompressedSize": "0xaa1e",
+                      "Offset": "0x6418",
+                      "FilesNum": 3,
+                      "Files": [
+                        {
+                          "EFI_SECTION_PE32": {
+                            "Name": "EFI_SECTION_PE32",
+                            "Type": "SECTION",
+                            "Size": "0xa9e4",
+                            "Offset": "0x6430",
+                            "FilesNum": 0
+                          }
+                        },
+                        {
+                          "EFI_SECTION_USER_INTERFACE": {
+                            "Name": "EFI_SECTION_USER_INTERFACE",
+                            "Type": "SECTION",
+                            "Size": "0x14",
+                            "Offset": "0x10e14",
+                            "FilesNum": 0
+                          }
+                        },
+                        {
+                          "EFI_SECTION_VERSION": {
+                            "Name": "EFI_SECTION_VERSION",
+                            "Type": "SECTION",
+                            "Size": "0xe",
+                            "Offset": "0x10e28",
+                            "FilesNum": 0
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "29cbb005-c972-49f3-960f-292e2202cecd": {
+                "Name": "29cbb005-c972-49f3-960f-292e2202cecd",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x9f8",
+                "Offset": "0xb7d8",
+                "FilesNum": 2,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x3a",
+                      "Offset": "0xb7f0",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_GUID_DEFINED_SECTION": {
+                      "Name": "EFI_GUID_DEFINED_SECTION",
+                      "Type": "SECTION",
+                      "Size": "0x9a4",
+                      "DecompressedSize": "0x1156",
+                      "Offset": "0xb82c",
+                      "FilesNum": 3,
+                      "Files": [
+                        {
+                          "EFI_SECTION_PE32": {
+                            "Name": "EFI_SECTION_PE32",
+                            "Type": "SECTION",
+                            "Size": "0x1104",
+                            "Offset": "0xb844",
+                            "FilesNum": 0
+                          }
+                        },
+                        {
+                          "EFI_SECTION_USER_INTERFACE": {
+                            "Name": "EFI_SECTION_USER_INTERFACE",
+                            "Type": "SECTION",
+                            "Size": "0x2a",
+                            "Offset": "0xc948",
+                            "FilesNum": 0
+                          }
+                        },
+                        {
+                          "EFI_SECTION_VERSION": {
+                            "Name": "EFI_SECTION_VERSION",
+                            "Type": "SECTION",
+                            "Size": "0xe",
+                            "Offset": "0xc974",
+                            "FilesNum": 0
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "49ba7eeb-49f4-4bb4-85de-fd4fe7369e58": {
+                "Name": "49ba7eeb-49f4-4bb4-85de-fd4fe7369e58",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x1cf5",
+                "Offset": "0xc1d0",
+                "FilesNum": 2,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x5e",
+                      "Offset": "0xc1e8",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_GUID_DEFINED_SECTION": {
+                      "Name": "EFI_GUID_DEFINED_SECTION",
+                      "Type": "SECTION",
+                      "Size": "0x1c7d",
+                      "DecompressedSize": "0x3d7a",
+                      "Offset": "0xc248",
+                      "FilesNum": 3,
+                      "Files": [
+                        {
+                          "EFI_SECTION_PE32": {
+                            "Name": "EFI_SECTION_PE32",
+                            "Type": "SECTION",
+                            "Size": "0x3d24",
+                            "Offset": "0xc260",
+                            "FilesNum": 0
+                          }
+                        },
+                        {
+                          "EFI_SECTION_USER_INTERFACE": {
+                            "Name": "EFI_SECTION_USER_INTERFACE",
+                            "Type": "SECTION",
+                            "Size": "0x2e",
+                            "Offset": "0xff84",
+                            "FilesNum": 0
+                          }
+                        },
+                        {
+                          "EFI_SECTION_VERSION": {
+                            "Name": "EFI_SECTION_VERSION",
+                            "Type": "SECTION",
+                            "Size": "0xe",
+                            "Offset": "0xffb4",
+                            "FilesNum": 0
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "edadeb9d-ddba-48bd-9d22-c1c169c8c5c6": {
+                "Name": "edadeb9d-ddba-48bd-9d22-c1c169c8c5c6",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x574f",
+                "Offset": "0xdec8",
+                "FilesNum": 2,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x3d",
+                      "Offset": "0xdee0",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_GUID_DEFINED_SECTION": {
+                      "Name": "EFI_GUID_DEFINED_SECTION",
+                      "Type": "SECTION",
+                      "Size": "0x56f7",
+                      "DecompressedSize": "0xa422",
+                      "Offset": "0xdf20",
+                      "FilesNum": 3,
+                      "Files": [
+                        {
+                          "EFI_SECTION_PE32": {
+                            "Name": "EFI_SECTION_PE32",
+                            "Type": "SECTION",
+                            "Size": "0xa3e4",
+                            "Offset": "0xdf38",
+                            "FilesNum": 0
+                          }
+                        },
+                        {
+                          "EFI_SECTION_USER_INTERFACE": {
+                            "Name": "EFI_SECTION_USER_INTERFACE",
+                            "Type": "SECTION",
+                            "Size": "0x16",
+                            "Offset": "0x1831c",
+                            "FilesNum": 0
+                          }
+                        },
+                        {
+                          "EFI_SECTION_VERSION": {
+                            "Name": "EFI_SECTION_VERSION",
+                            "Type": "SECTION",
+                            "Size": "0xe",
+                            "Offset": "0x18334",
+                            "FilesNum": 0
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "7f03bd46-f05f-44a4-b00d-ca6a160bbe14": {
+                "Name": "7f03bd46-f05f-44a4-b00d-ca6a160bbe14",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x4fe24",
+                "Offset": "0x13618",
+                "FilesNum": 2,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0xa6",
+                      "Offset": "0x13630",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_GUID_DEFINED_SECTION": {
+                      "Name": "EFI_GUID_DEFINED_SECTION",
+                      "Type": "SECTION",
+                      "Size": "0x4fd64",
+                      "DecompressedSize": "0xbd346",
+                      "Offset": "0x136d8",
+                      "FilesNum": 3,
+                      "Files": [
+                        {
+                          "EFI_SECTION_PE32": {
+                            "Name": "EFI_SECTION_PE32",
+                            "Type": "SECTION",
+                            "Size": "0xbd304",
+                            "Offset": "0x136f0",
+                            "FilesNum": 0
+                          }
+                        },
+                        {
+                          "EFI_SECTION_USER_INTERFACE": {
+                            "Name": "EFI_SECTION_USER_INTERFACE",
+                            "Type": "SECTION",
+                            "Size": "0x1a",
+                            "Offset": "0xd09f4",
+                            "FilesNum": 0
+                          }
+                        },
+                        {
+                          "EFI_SECTION_VERSION": {
+                            "Name": "EFI_SECTION_VERSION",
+                            "Type": "SECTION",
+                            "Size": "0xe",
+                            "Offset": "0xd0a10",
+                            "FilesNum": 0
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "183bb3e1-a1e5-4445-8ac9-0e83b6547e0e": {
+                "Name": "183bb3e1-a1e5-4445-8ac9-0e83b6547e0e",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x4de4",
+                "Offset": "0x63440",
+                "FilesNum": 2,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x70",
+                      "Offset": "0x63458",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_GUID_DEFINED_SECTION": {
+                      "Name": "EFI_GUID_DEFINED_SECTION",
+                      "Type": "SECTION",
+                      "Size": "0x4d5c",
+                      "DecompressedSize": "0xa7ae",
+                      "Offset": "0x634c8",
+                      "FilesNum": 3,
+                      "Files": [
+                        {
+                          "EFI_SECTION_PE32": {
+                            "Name": "EFI_SECTION_PE32",
+                            "Type": "SECTION",
+                            "Size": "0xa764",
+                            "Offset": "0x634e0",
+                            "FilesNum": 0
+                          }
+                        },
+                        {
+                          "EFI_SECTION_USER_INTERFACE": {
+                            "Name": "EFI_SECTION_USER_INTERFACE",
+                            "Type": "SECTION",
+                            "Size": "0x22",
+                            "Offset": "0x6dc44",
+                            "FilesNum": 0
+                          }
+                        },
+                        {
+                          "EFI_SECTION_VERSION": {
+                            "Name": "EFI_SECTION_VERSION",
+                            "Type": "SECTION",
+                            "Size": "0xe",
+                            "Offset": "0x6dc68",
+                            "FilesNum": 0
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "7eeb71dd-cc63-4cc9-9cfc-e5fbb813eb02": {
+                "Name": "7eeb71dd-cc63-4cc9-9cfc-e5fbb813eb02",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x947",
+                "Offset": "0x68228",
+                "FilesNum": 2,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x28",
+                      "Offset": "0x68240",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_GUID_DEFINED_SECTION": {
+                      "Name": "EFI_GUID_DEFINED_SECTION",
+                      "Type": "SECTION",
+                      "Size": "0x907",
+                      "DecompressedSize": "0x1126",
+                      "Offset": "0x68268",
+                      "FilesNum": 3,
+                      "Files": [
+                        {
+                          "EFI_SECTION_PE32": {
+                            "Name": "EFI_SECTION_PE32",
+                            "Type": "SECTION",
+                            "Size": "0x10e4",
+                            "Offset": "0x68280",
+                            "FilesNum": 0
+                          }
+                        },
+                        {
+                          "EFI_SECTION_USER_INTERFACE": {
+                            "Name": "EFI_SECTION_USER_INTERFACE",
+                            "Type": "SECTION",
+                            "Size": "0x1a",
+                            "Offset": "0x69364",
+                            "FilesNum": 0
+                          }
+                        },
+                        {
+                          "EFI_SECTION_VERSION": {
+                            "Name": "EFI_SECTION_VERSION",
+                            "Type": "SECTION",
+                            "Size": "0xe",
+                            "Offset": "0x69380",
+                            "FilesNum": 0
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "1b3bc280-14b1-4d93-8e48-c2f80c457af3": {
+                "Name": "1b3bc280-14b1-4d93-8e48-c2f80c457af3",
+                "UiName": "PiSmmCpuStandaloneSmm",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0xc7c2",
+                "Offset": "0x68b70",
+                "FilesNum": 4,
+                "Files": [
+                  {
+                    "EFI_SECTION_MM_DEPEX": {
+                      "Name": "EFI_SECTION_MM_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x6",
+                      "Offset": "0x68b88",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_PE32": {
+                      "Name": "EFI_SECTION_PE32",
+                      "Type": "SECTION",
+                      "Size": "0xc764",
+                      "Offset": "0x68b90",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x30",
+                      "Offset": "0x752f4",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0x75324",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "ffffffff-ffff-ffff-ffff-ffffffffffff": {
+                "Name": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+                "Type": "FFS_FREE_SPACE",
+                "Size": "0x17490",
+                "Offset": "0x68b70",
+                "FilesNum": 0
+              }
+            }
+          ]
+        }
+      },
+      {
+        "FV1": {
+          "Name": "FV1",
+          "FvNameGuid": "76da44cd-1cff-4115-8fd9-472463d1d905",
+          "Type": "FV",
+          "Attributes": "0x4feff",
+          "Size": "0x3a000",
+          "FreeSize": "0x39f88",
+          "Offset": "0x80000",
+          "FilesNum": 2,
+          "Files": [
+            {
+              "ffffffff-ffff-ffff-ffff-ffffffffffff": {
+                "Name": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+                "Type": "FFS_PAD",
+                "Size": "0x2c",
+                "Offset": "0x80048",
+                "FilesNum": 0
+              }
+            },
+            {
+              "ffffffff-ffff-ffff-ffff-ffffffffffff": {
+                "Name": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+                "Type": "FFS_FREE_SPACE",
+                "Size": "0x39f88",
+                "Offset": "0x80078",
+                "FilesNum": 0
+              }
+            }
+          ]
+        }
+      },
+      {
+        "FV2": {
+          "Name": "FV2",
+          "FvNameGuid": "8ad52b63-f7ec-48c5-b2cd-45db4f14044b",
+          "Type": "FV",
+          "Attributes": "0x4feff",
+          "Size": "0x2b8000",
+          "FreeSize": "0x1f730",
+          "Offset": "0xba000",
+          "FilesNum": 23,
+          "Files": [
+            {
+              "ffffffff-ffff-ffff-ffff-ffffffffffff": {
+                "Name": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+                "Type": "FFS_PAD",
+                "Size": "0x2c",
+                "Offset": "0xba048",
+                "FilesNum": 0
+              }
+            },
+            {
+              "912740be-2284-4734-b971-84b027353f0c": {
+                "Name": "912740be-2284-4734-b971-84b027353f0c",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x94",
+                "Offset": "0xba078",
+                "FilesNum": 1,
+                "Files": [
+                  {
+                    "EFI_SECTION_RAW": {
+                      "Name": "EFI_SECTION_RAW",
+                      "Type": "SECTION",
+                      "Size": "0x7c",
+                      "Offset": "0xba090",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "d9093578-08eb-44df-b9d8-d0c1d3d55d96": {
+                "Name": "d9093578-08eb-44df-b9d8-d0c1d3d55d96",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x58",
+                "Offset": "0xba110",
+                "FilesNum": 1,
+                "Files": [
+                  {
+                    "EFI_SECTION_RAW": {
+                      "Name": "EFI_SECTION_RAW",
+                      "Type": "SECTION",
+                      "Size": "0x40",
+                      "Offset": "0xba128",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "d5b86aea-6af7-40d4-8014-982301bc3d89": {
+                "Name": "d5b86aea-6af7-40d4-8014-982301bc3d89",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x355",
+                "Offset": "0xba168",
+                "FilesNum": 1,
+                "Files": [
+                  {
+                    "EFI_SECTION_RAW": {
+                      "Name": "EFI_SECTION_RAW",
+                      "Type": "SECTION",
+                      "Size": "0x33d",
+                      "Offset": "0xba180",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "8c3d856a-9be6-468e-850a-24f7a8d38e08": {
+                "Name": "8c3d856a-9be6-468e-850a-24f7a8d38e08",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x4384",
+                "Offset": "0xba4c0",
+                "FilesNum": 1,
+                "Files": [
+                  {
+                    "EFI_SECTION_RAW": {
+                      "Name": "EFI_SECTION_RAW",
+                      "Type": "SECTION",
+                      "Size": "0x436c",
+                      "Offset": "0xba4d8",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "c2f9ae46-3437-4fef-9cb1-9a568b282fee": {
+                "Name": "c2f9ae46-3437-4fef-9cb1-9a568b282fee",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x2970",
+                "Offset": "0xbe848",
+                "FilesNum": 2,
+                "Files": [
+                  {
+                    "EFI_SECTION_RAW": {
+                      "Name": "EFI_SECTION_RAW",
+                      "Type": "SECTION",
+                      "Size": "0x4",
+                      "Offset": "0xbe860",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x2954",
+                      "Offset": "0xbe864",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "52c05b14-0b98-496c-bc3b-04b50211d680": {
+                "Name": "52c05b14-0b98-496c-bc3b-04b50211d680",
+                "UiName": "PeiCore",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0x5ace",
+                "Offset": "0xc11b8",
+                "FilesNum": 3,
+                "Files": [
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x5a94",
+                      "Offset": "0xc11d0",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x14",
+                      "Offset": "0xc6c64",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0xc6c78",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "b73f81b9-1dfc-487c-824c-0509ee2b0128": {
+                "Name": "b73f81b9-1dfc-487c-824c-0509ee2b0128",
+                "UiName": "DebugServicePei",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0x1e96",
+                "Offset": "0xc6c88",
+                "FilesNum": 4,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x16",
+                      "Offset": "0xc6ca0",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x1e34",
+                      "Offset": "0xc6cb8",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x24",
+                      "Offset": "0xc8aec",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0xc8b10",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "9b3ada4f-ae56-4c24-8dea-f03b7558ae50": {
+                "Name": "9b3ada4f-ae56-4c24-8dea-f03b7558ae50",
+                "UiName": "PcdPeim",
+                "Version": "4.0",
+                "Type": "FFS",
+                "Size": "0x3a4a",
+                "Offset": "0xc8b20",
+                "FilesNum": 5,
+                "Files": [
+                  {
+                    "EFI_SECTION_RAW": {
+                      "Name": "EFI_SECTION_RAW",
+                      "Type": "SECTION",
+                      "Size": "0x4d4",
+                      "Offset": "0xc8b38",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x28",
+                      "Offset": "0xc900c",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x3514",
+                      "Offset": "0xc9034",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x14",
+                      "Offset": "0xcc548",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0xcc55c",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "fde29a56-c197-4ae1-bb98-792b2f09725d": {
+                "Name": "fde29a56-c197-4ae1-bb98-792b2f09725d",
+                "UiName": "FspVariablePcd",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0x2662",
+                "Offset": "0xcc570",
+                "FilesNum": 4,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x3a",
+                      "Offset": "0xcc588",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x25dc",
+                      "Offset": "0xcc5c4",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x22",
+                      "Offset": "0xceba0",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0xcebc4",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "a3610442-e69f-4df3-82ca-2360c4031a23": {
+                "Name": "a3610442-e69f-4df3-82ca-2360c4031a23",
+                "UiName": "ReportStatusCodeRouterPei",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0xef6",
+                "Offset": "0xcebd8",
+                "FilesNum": 4,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x3a",
+                      "Offset": "0xcebf0",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0xe5c",
+                      "Offset": "0xcec2c",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x38",
+                      "Offset": "0xcfa88",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0xcfac0",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "75e78806-c68f-4839-8a68-b29084820659": {
+                "Name": "75e78806-c68f-4839-8a68-b29084820659",
+                "UiName": "ExStatusCodeHandlerPei",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0x29da",
+                "Offset": "0xcfad0",
+                "FilesNum": 4,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x4c",
+                      "Offset": "0xcfae8",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x2934",
+                      "Offset": "0xcfb34",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x32",
+                      "Offset": "0xd2468",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0xd249c",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "ae265864-cf5d-41a8-913d-71c155e76442": {
+                "Name": "ae265864-cf5d-41a8-913d-71c155e76442",
+                "UiName": "CpuIoPei",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0x1642",
+                "Offset": "0xd24b0",
+                "FilesNum": 4,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x28",
+                      "Offset": "0xd24c8",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x15dc",
+                      "Offset": "0xd24f0",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x16",
+                      "Offset": "0xd3acc",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0xd3ae4",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "c7d9baf4-dc9d-4b22-b4e7-7500eaa7b67f": {
+                "Name": "c7d9baf4-dc9d-4b22-b4e7-7500eaa7b67f",
+                "UiName": "SiliconDataInitPeim",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0x1876",
+                "Offset": "0xd3af8",
+                "FilesNum": 4,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x28",
+                      "Offset": "0xd3b10",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x17fc",
+                      "Offset": "0xd3b38",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x2c",
+                      "Offset": "0xd5334",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0xd5360",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "8f7f3d20-9823-42dd-9ff7-53dac93ef407": {
+                "Name": "8f7f3d20-9823-42dd-9ff7-53dac93ef407",
+                "UiName": "CsrPseudoOffsetInitPeim",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0x10c2",
+                "Offset": "0xd5370",
+                "FilesNum": 4,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x3a",
+                      "Offset": "0xd5388",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x102c",
+                      "Offset": "0xd53c4",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x34",
+                      "Offset": "0xd63f0",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0xd6424",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "2c6cacc6-6c3c-4aa7-b2de-384dae2b0352": {
+                "Name": "2c6cacc6-6c3c-4aa7-b2de-384dae2b0352",
+                "UiName": "RegAccessPeim",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0x1245e",
+                "Offset": "0xd6438",
+                "FilesNum": 4,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x4c",
+                      "Offset": "0xd6450",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x123cc",
+                      "Offset": "0xd649c",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x20",
+                      "Offset": "0xe8868",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0xe8888",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "baeb5bee-5b33-480a-8ab7-b29c85e7ceab": {
+                "Name": "baeb5bee-5b33-480a-8ab7-b29c85e7ceab",
+                "UiName": "FspGlobalDataInitPei",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0x181e",
+                "Offset": "0xe8898",
+                "FilesNum": 4,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x3a",
+                      "Offset": "0xe88b0",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x178c",
+                      "Offset": "0xe88ec",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x2e",
+                      "Offset": "0xea078",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0xea0a8",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "9618c0dc-50a4-496c-994f-7241f282ed01": {
+                "Name": "9618c0dc-50a4-496c-994f-7241f282ed01",
+                "UiName": "FspInitPreMem",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0x1067e",
+                "Offset": "0xea0b8",
+                "FilesNum": 4,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x4c",
+                      "Offset": "0xea0d0",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x105ec",
+                      "Offset": "0xea11c",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x20",
+                      "Offset": "0xfa708",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0xfa728",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "6141e486-7543-4f1a-a579-ff532ed78e75": {
+                "Name": "6141e486-7543-4f1a-a579-ff532ed78e75",
+                "UiName": "ResetSystemPei",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0x1956",
+                "Offset": "0xfa738",
+                "FilesNum": 4,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x5e",
+                      "Offset": "0xfa750",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x18ac",
+                      "Offset": "0xfa7b0",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x22",
+                      "Offset": "0xfc05c",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0xfc080",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "9d437e74-5442-4a3e-892e-a26b8a683bf0": {
+                "Name": "9d437e74-5442-4a3e-892e-a26b8a683bf0",
+                "UiName": "SiInitPreMemGnrSrf",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0x63d2",
+                "Offset": "0xfc090",
+                "FilesNum": 4,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x4c",
+                      "Offset": "0xfc0a8",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x6334",
+                      "Offset": "0xfc0f4",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x2a",
+                      "Offset": "0x102428",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0x102454",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "dee3f62a-3b0f-448b-81f9-4afd546515b9": {
+                "Name": "dee3f62a-3b0f-448b-81f9-4afd546515b9",
+                "UiName": "SiliconNvsDataPei",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0x7416",
+                "Offset": "0x102468",
+                "FilesNum": 4,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x4c",
+                      "Offset": "0x102480",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x737c",
+                      "Offset": "0x1024cc",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x28",
+                      "Offset": "0x109848",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0x109870",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "817b8ce3-be6a-4726-bf4c-a6bf690614f2": {
+                "Name": "817b8ce3-be6a-4726-bf4c-a6bf690614f2",
+                "UiName": "SalPreMem",
+                "Version": "1.0",
+                "Type": "FFS",
+                "Size": "0x24904a",
+                "Offset": "0x109880",
+                "FilesNum": 4,
+                "Files": [
+                  {
+                    "EFI_SECTION_PEI_DEPEX": {
+                      "Name": "EFI_SECTION_PEI_DEPEX",
+                      "Type": "SECTION",
+                      "Size": "0x5e",
+                      "Offset": "0x109898",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x248fac",
+                      "Offset": "0x1098f8",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_USER_INTERFACE": {
+                      "Name": "EFI_SECTION_USER_INTERFACE",
+                      "Type": "SECTION",
+                      "Size": "0x18",
+                      "Offset": "0x3528a4",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_VERSION": {
+                      "Name": "EFI_SECTION_VERSION",
+                      "Type": "SECTION",
+                      "Size": "0xe",
+                      "Offset": "0x3528bc",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "ffffffff-ffff-ffff-ffff-ffffffffffff": {
+                "Name": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+                "Type": "FFS_FREE_SPACE",
+                "Size": "0x1f730",
+                "Offset": "0x3528d0",
+                "FilesNum": 0
+              }
+            }
+          ]
+        }
+      },
+      {
+        "FV3": {
+          "Name": "FV3",
+          "FvNameGuid": "52f1afb6-78a6-448f-8274-f370549ac5d0",
+          "Type": "FV",
+          "Attributes": "0x4feff",
+          "Size": "0x8000",
+          "FreeSize": "0x3b80",
+          "Offset": "0x372000",
+          "FilesNum": 6,
+          "Files": [
+            {
+              "ffffffff-ffff-ffff-ffff-ffffffffffff": {
+                "Name": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+                "Type": "FFS_PAD",
+                "Size": "0x2c",
+                "Offset": "0x372048",
+                "FilesNum": 0
+              }
+            },
+            {
+              "912740be-2284-4734-b971-84b027353f0c": {
+                "Name": "912740be-2284-4734-b971-84b027353f0c",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x94",
+                "Offset": "0x372078",
+                "FilesNum": 1,
+                "Files": [
+                  {
+                    "EFI_SECTION_RAW": {
+                      "Name": "EFI_SECTION_RAW",
+                      "Type": "SECTION",
+                      "Size": "0x7c",
+                      "Offset": "0x372090",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "d9093578-08eb-44df-b9d8-d0c1d3d55d96": {
+                "Name": "d9093578-08eb-44df-b9d8-d0c1d3d55d96",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x58",
+                "Offset": "0x372110",
+                "FilesNum": 1,
+                "Files": [
+                  {
+                    "EFI_SECTION_RAW": {
+                      "Name": "EFI_SECTION_RAW",
+                      "Type": "SECTION",
+                      "Size": "0x40",
+                      "Offset": "0x372128",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "70bcf6a5-ffb1-47d8-b1ae-efe5508e23ea": {
+                "Name": "70bcf6a5-ffb1-47d8-b1ae-efe5508e23ea",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x9e",
+                "Offset": "0x372168",
+                "FilesNum": 1,
+                "Files": [
+                  {
+                    "EFI_SECTION_RAW": {
+                      "Name": "EFI_SECTION_RAW",
+                      "Type": "SECTION",
+                      "Size": "0x86",
+                      "Offset": "0x372180",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "5b94e419-c795-414d-a0d4-b80a877be5fe": {
+                "Name": "5b94e419-c795-414d-a0d4-b80a877be5fe",
+                "UiName": "b''",
+                "Version": "b''",
+                "Type": "FFS",
+                "Size": "0x4278",
+                "Offset": "0x372208",
+                "FilesNum": 2,
+                "Files": [
+                  {
+                    "EFI_SECTION_RAW": {
+                      "Name": "EFI_SECTION_RAW",
+                      "Type": "SECTION",
+                      "Size": "0x4",
+                      "Offset": "0x372220",
+                      "FilesNum": 0
+                    }
+                  },
+                  {
+                    "EFI_SECTION_TE": {
+                      "Name": "EFI_SECTION_TE",
+                      "Type": "SECTION",
+                      "Size": "0x425c",
+                      "Offset": "0x372224",
+                      "FilesNum": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "ffffffff-ffff-ffff-ffff-ffffffffffff": {
+                "Name": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+                "Type": "FFS_FREE_SPACE",
+                "Size": "0x3b80",
+                "Offset": "0x376480",
+                "FilesNum": 0
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
