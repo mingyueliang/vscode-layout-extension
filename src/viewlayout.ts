@@ -69,7 +69,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
         <style type="text/css">
         .menu {
             padding: 0;
-            height: 50px;
+            height: 20px;
             margin-block-end: 0;
         }
 
@@ -98,15 +98,40 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
 
         #menuBox {
             border-style: solid;
+            border-bottom:none;
         }
 
         #box {
-            width: 100%;
-            height: 100%;
             border-style:solid;
+            width:50%;
+        }
+        #box1 {
+            border-style:solid;
+            width:50%;
+            border-left:none;
+        }
+        #wrap {
+            display:flex;
         }
 
-    </style>
+        #btn {
+            width: 70px;
+            margin-left: 60px;
+        }
+
+        #hr {
+            border:0px;
+        }
+
+        #input {
+            margin:0;
+        }
+
+        #fvname {
+            background-color:transparent;
+        }
+
+        </style>
     </heaad>
     
     <body>
@@ -115,14 +140,19 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                 <li>FV Info</li>
                 <li id="uploadfile">Add FFS</li>
                 <li id="delete">Delete FFS</li>
-                <li>Replace FFS</li>
-                <li>Extract FFS</li>
-                <li onclick="deleteLiNode()">Clear</li>
+                <li id="replace">Replace FFS</li>
+                <li id="extract">Extract FFS</li>
             </ul>
         </div>
-
-        <div id="box">
-            <ul id="top"></ul>
+        <div id="wrap">
+            <div id="box">
+                <spwn>Layout source file: ${outName}</spwn>
+                <ul id="top"></ul>
+            </div>
+            <div id="box1">
+                <spwn id="afterLayout">Layout after operation</spwn>
+                <ul id="top1"></ul>
+            </div>
         </div>
         <input type="file" id="file" style="display:none" accept=".fd,.Fv, .fv,.ffs,.sec">
         
@@ -132,73 +162,338 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
             // revice message from vscode
             window.addEventListener('message', event => {
                 const message = event.data;
-                var files = message.files.split(";");
-                for (var i=0;i<files.length; i++){
-                    var fileObj = files[i].split(",")
-                    createLayout(fileObj[0], fileObj[1], fileObj[0].split(".").pop())
+                var file = message.resFile;
+                var sourceFileName = message.sourceFileName
+
+                var spwn = document.getElementById("afterLayout")
+                if (message.mode == '-a') {
+                    spwn.innerHTML = "Add " + message.targetFfsPath + " to FV(" + message.targetFvName +")"
+                } else if (message.mode == '-d') {
+                    spwn.innerHTML = "Delete " + message.targetFfsName + " from FV(" + message.targetFvName + ")"
+                } else if (message.mode == '-r') {
+                    spwn.innerHTML = "Replace " + message.targetFfsPath + " with " + message.targetFfsName + " in FV(" + message.targetFvName + ")"
+                } else if (message.mode == '-e') {
+                    spwn.innerHTML = "Extract " + message.targetFfsName + " from FV(" + message.targetFvName + ")"
                 }
+                deleteLiNode("#top1")
+                createLayout(sourceFileName, file, sourceFileName.split(".").pop(), 'top1')
+
+                var input = document.getElementById("input")
+                document.getElementById("menuBox").removeChild(input)
             });
 
             // add fv click
             $("#uploadfile").click(function() {
-                const myfile = $("#file")
-                myfile.click()
+                var pDiv = document.createElement('p');
+                pDiv.id = "input"
+                document.getElementById('menuBox').append(pDiv)
 
-                myfile.unbind().change(function (e) {
-                    var files = e.target.files
-                    if (files.length){
-                        var fileString = []
-                        for (var i=0; i<files.length; i++) {
-                            fileString.push(files[i].path)
-                        // post message to vscode
-                        vscode.postMessage({'filepath': fileString.join(";")})
-                        }
-                    }
-                })
-            })
+                var hrDiv = document.createElement('hr');
+                hrDiv.id = "hr"
+                hrDiv.innerHTML = "<hr/>";
+                document.getElementById('input').append(hrDiv)
 
-            $("#delete").click(function (e) {
+                var targetFvName = document.createElement("spwn")
+                targetFvName.innerHTML = "targetFvName:   "
+                targetFvName.id = "targetFvName"
+                document.getElementById('input').append(targetFvName)
+
                 var input = document.createElement("input")
                 input.type="text"
                 input.id="fvname"
                 input.placeholder="Type Target FV Name"
+                document.getElementById('input').append(input)
 
-                document.getElementById('menuBox').append(input)
+                var brDiv = document.createElement('br');
+                brDiv.innerHTML = "<br/>";
+                document.getElementById('input').append(brDiv)
+                // end
+
+                var targetFfsPathName = document.createElement("spwn")
+                targetFfsPathName.innerHTML = "targetFfsPath: "
+                targetFfsPathName.id = "targetFfsPath"
+                document.getElementById('input').append(targetFfsPathName)
 
                 var name = document.createElement("input")
                 name.type="text"
-                name.id="ffsname"
-                name.placeholder="Type Target FFS Name"
+                name.id="ffspath"
+                name.placeholder="Type new ffs file absolute path"
+                document.getElementById('input').append(name)
 
-                document.getElementById('menuBox').append(name)
+                var brDiv1 = document.createElement('br');
+                brDiv1.innerHTML = "<br/>";
+                document.getElementById('input').append(brDiv1)
+
+                var brDiv2 = document.createElement('br');
+                brDiv2.innerHTML = "<br/>";
+
+                var OutputPath = document.createElement("spwn")
+                OutputPath.innerHTML = "outputPath:   "
+                OutputPath.id = "OutputPath"
+                document.getElementById('input').append(OutputPath)
+
+                var OutputPathName = document.createElement("input")
+                OutputPathName.type="text"
+                OutputPathName.id="OutputPathName"
+                OutputPathName.placeholder="Type output file abs path"
+
+                document.getElementById('input').append(OutputPathName)
+                document.getElementById('input').append(brDiv2)
+
 
                 var button = document.createElement("input")
                 button.id="btn"
                 button.type="button"
                 button.value="ok"
                 button.onclick = function () {
-                    console.log("test......")
+                    console.log(document.getElementById("fvname").value)
+                    console.log(document.getElementById("ffspath").value)
+                    vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:"", targetFfsPath:document.getElementById("ffspath").value, outputfile:document.getElementById("OutputPathName").value, mode:"-a"})
+                }
+                document.getElementById('input').append(button)
+            })
+
+            $("#delete").click(function (e) {
+                var pDiv = document.createElement('p');
+                pDiv.id = "input"
+                document.getElementById('menuBox').append(pDiv)
+
+                var hrDiv = document.createElement('hr');
+                hrDiv.id = "hr"
+                hrDiv.innerHTML = "<hr/>";
+                document.getElementById('input').append(hrDiv)
+
+                var brDiv = document.createElement('br');
+                brDiv.innerHTML = "<br/>";
+
+                var targetFvName = document.createElement("spwn")
+                targetFvName.innerHTML = "targetFvName:   "
+                targetFvName.id = "targetFvName"
+                document.getElementById('input').append(targetFvName)
+
+                var input = document.createElement("input")
+                input.type="text"
+                input.id="fvname"
+                input.placeholder="Type Target FV Name"
+
+                document.getElementById('input').append(input)
+                document.getElementById('input').append(brDiv)
+
+
+                var brDiv1 = document.createElement('br');
+                brDiv1.innerHTML = "<br/>";
+
+                var targetFfsName = document.createElement("spwn")
+                targetFfsName.innerHTML = "targetFfsName:  "
+                targetFfsName.id = "targetFfsName"
+                document.getElementById('input').append(targetFfsName)
+
+                var name = document.createElement("input")
+                name.type="text"
+                name.id="ffsname"
+                name.placeholder="Type Target FFS Name"
+
+                document.getElementById('input').append(name)
+                document.getElementById('input').append(brDiv1)
+
+
+                var brDiv2 = document.createElement('br');
+                brDiv2.innerHTML = "<br/>";
+
+                var OutputPath = document.createElement("spwn")
+                OutputPath.innerHTML = "outputPath:    "
+                OutputPath.id = "OutputPath"
+                document.getElementById('input').append(OutputPath)
+
+                var OutputPathName = document.createElement("input")
+                OutputPathName.type="text"
+                OutputPathName.id="OutputPathName"
+                OutputPathName.placeholder="Type output file abs path"
+
+                document.getElementById('input').append(OutputPathName)
+                document.getElementById('input').append(brDiv2)
+
+
+                var button = document.createElement("input")
+                button.id="btn"
+                button.type="button"
+                button.value="ok"
+                button.onclick = function () {
                     console.log(document.getElementById("fvname").value)
                     console.log(document.getElementById("ffsname").value)
-    
+                    vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:"", outputfile:document.getElementById("OutputPathName").value, mode:"-d"})
                 }
-                
-                document.getElementById('menuBox').append(button)
+                document.getElementById('input').append(button)
+            })
+
+            $("#replace").click(function (e) {
+                var pDiv = document.createElement('p');
+                pDiv.id = "input"
+                document.getElementById('menuBox').append(pDiv)
+
+                var hrDiv = document.createElement('hr');
+                hrDiv.id = "hr"
+                hrDiv.innerHTML = "<hr/>";
+                document.getElementById('input').append(hrDiv)
+
+                var brDiv = document.createElement('br');
+                brDiv.innerHTML = "<br/>";
+
+                var targetFvName = document.createElement("spwn")
+                targetFvName.innerHTML = "targetFvName:   "
+                targetFvName.id = "targetFvName"
+                document.getElementById('input').append(targetFvName)
+
+                var input = document.createElement("input")
+                input.type="text"
+                input.id="fvname"
+                input.placeholder="Type Target FV Name"
+                document.getElementById('input').append(input)
+                document.getElementById('input').append(brDiv)
+
+                var brDiv1 = document.createElement('br');
+                brDiv1.innerHTML = "<br/>";
+
+                var targetFfsName = document.createElement("spwn")
+                targetFfsName.innerHTML = "targetFfsName: "
+                targetFfsName.id = "targetFfsName"
+
+                var ffsname = document.createElement("input")
+                ffsname.type="text"
+                ffsname.id="ffsname"
+                ffsname.placeholder="Type Target FFS Name"
+
+                document.getElementById('input').append(targetFfsName)
+                document.getElementById('input').append(ffsname)
+                document.getElementById('input').append(brDiv1)
+
+                var targetFfsPathName = document.createElement("spwn")
+                targetFfsPathName.innerHTML = "targetFfsPath: "
+                targetFfsPathName.id = "targetFfsPath"
+                document.getElementById('input').append(targetFfsPathName)
+
+                var name = document.createElement("input")
+                name.type="text"
+                name.id="ffspath"
+                name.placeholder="Type new ffs file absolute path"
+                document.getElementById('input').append(name)
 
 
+                var brDiv2 = document.createElement('br');
+                brDiv2.innerHTML = "<br/>";
+                document.getElementById('input').append(brDiv2)
+
+                var OutputPath = document.createElement("spwn")
+                OutputPath.innerHTML = "outputPath:    "
+                OutputPath.id = "OutputPath"
+
+                var OutputPathName = document.createElement("input")
+                OutputPathName.type="text"
+                OutputPathName.id="OutputPathName"
+                OutputPathName.placeholder="Type output file abs path"
+
+                document.getElementById('input').append(OutputPath)
+                document.getElementById('input').append(OutputPathName)
+                var brDiv3 = document.createElement('br');
+                brDiv3.innerHTML = "<br/>";
+                document.getElementById('input').append(brDiv3)
+
+
+                var button = document.createElement("input")
+                button.id="btn"
+                button.type="button"
+                button.value="ok"
+                button.onclick = function () {
+                    console.log(document.getElementById("fvname").value)
+                    console.log(document.getElementById("ffsname").value)
+                    vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:document.getElementById("ffspath").value, outputfile:document.getElementById("OutputPathName").value, mode:"-r"})
+                }
+                document.getElementById('input').append(button)
+            })
+
+            $("#extract").click(function (e) {
+                var pDiv = document.createElement('p');
+                pDiv.id = "input"
+                document.getElementById('menuBox').append(pDiv)
+
+                var hrDiv = document.createElement('hr');
+                hrDiv.id = "hr"
+                hrDiv.innerHTML = "<hr/>";
+                document.getElementById('input').append(hrDiv)
+
+                var brDiv = document.createElement('br');
+                brDiv.innerHTML = "<br/>";
+
+                var targetFvName = document.createElement("spwn")
+                targetFvName.innerHTML = "targetFvName:   "
+                targetFvName.id = "targetFvName"
+
+                var input = document.createElement("input")
+                input.type="text"
+                input.id="fvname"
+                input.placeholder="Type Target FV Name"
+
+                document.getElementById('input').append(targetFvName)
+                document.getElementById('input').append(input)
+                document.getElementById('input').append(brDiv)
+
+
+                var brDiv1 = document.createElement('br');
+                brDiv1.innerHTML = "<br/>";
+
+                var targetFfsName = document.createElement("spwn")
+                targetFfsName.innerHTML = "targetFfsName: "
+                targetFfsName.id = "targetFfsName"
+
+                var name = document.createElement("input")
+                name.type="text"
+                name.id="ffsname"
+                name.placeholder="Type Target FFS Name"
+
+                document.getElementById('input').append(targetFfsName)
+                document.getElementById('input').append(name)
+                document.getElementById('input').append(brDiv1)
+
+
+                var brDiv2 = document.createElement('br');
+                brDiv2.innerHTML = "<br/>";
+
+                var OutputPath = document.createElement("spwn")
+                OutputPath.innerHTML = "outputPath:    "
+                OutputPath.id = "OutputPath"
+
+                var OutputPathName = document.createElement("input")
+                OutputPathName.type="text"
+                OutputPathName.id="OutputPathName"
+                OutputPathName.placeholder="Type output file abs path"
+
+                document.getElementById('input').append(OutputPath)
+                document.getElementById('input').append(OutputPathName)
+                document.getElementById('input').append(brDiv2)
+
+                var button = document.createElement("input")
+                button.id="btn"
+                button.type="button"
+                button.value="ok"
+                button.onclick = function () {
+                    console.log(document.getElementById("fvname").value)
+                    console.log(document.getElementById("ffsname").value)
+                    vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:"", outputfile:document.getElementById("OutputPathName").value, mode:"-e"})
+                }
+                document.getElementById('input').append(button)
             })
 
 
             // main function
             window.onload = function() {
                 // create list
-                createLayout('${outName}', '${jsonPath}', '${fileType}')
+                createLayout('${outName}', '${jsonPath}', '${fileType}', 'top')
                 showOrHideList()
             }
 
             // Realize collapsible list
             function showOrHideList(){
-                $(document).on('click', '#top', function (e){
+                $(document).on('click', '#wrap', function (e){
                     var lis = $("li:has(ul)")
                     for (var index=0; index<lis.length; index++) {
                         lis[index].addEventListener('click', function(event) {
@@ -224,9 +519,10 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                 })
             }
 
+
             // Create file layout
-            function createLayout(className, jsonPath, fileType) {
-                var ul = document.getElementById('top')
+            function createLayout(sourceFileName, jsonPath, fileType, wrap) {
+                var ul = document.getElementById(wrap)
                 var li = document.createElement('li')
                 var oneIdName = fileType + GenNonDuplicateID()
                 li.setAttribute('id', oneIdName)
@@ -236,7 +532,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                 $.getJSON(jsonPath, function(result) {
                     if (result) {
                         var data = result[Object.keys(result)[0]]
-                        setInnerText(li, className + " Files=" + data['FilesNum']+" Type="+fileType)
+                        setInnerText(li, sourceFileName + " Files=" + data['FilesNum']+" Type="+fileType)
                         
                         var fvul = document.createElement('ul')
                         li.appendChild(fvul)
@@ -307,8 +603,8 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                 }
             } 
             // Clear all ul nodes in div (id='box').
-            function deleteLiNode() {
-                var ul = document.querySelector('#top')
+            function deleteLiNode(id) {
+                var ul = document.querySelector(id)
                 var list = ul.querySelectorAll('li')
 
                 for (var i=0; i<list.length; i++) {
@@ -347,23 +643,44 @@ module.exports =function(context: vscode.ExtensionContext){
  * @param sourceFilePath 
  * @param filePath 
  */
-function generateJsonFile(sourceFilePath:string, filePath:string) {
+function generateJsonFile(sourceFilePath:string, filePath:string, mode:string, outputfile?:string, fvName?:string, ffsName?:string, ffsPath?:string) {
     return new Promise((resolve)=>{
         fs.stat(sourceFilePath, function(err, stat) {
-            if (stat&&stat.isFile()){
-                console.log('json file is exist');
-            } else {
-                if (isLinuxOS() === true || isMacOS() === true){
-                    pythonInterpreter = 'python3';
-                }
-                fmmtPath = path.join(path.dirname(__dirname), 'utils/FMMT2/FMMT.py');
-                var commands = `${pythonInterpreter} ${fmmtPath} -v ${filePath} -l json`;
-
-                // create process to run FMMT.py
-                let cwd = path.join(path.dirname(__dirname));
-                const output = child_process.execSync(commands, {cwd: cwd});
-                console.log(output.toString());
+            // if (stat&&stat.isFile()){
+            //     console.log('json file is exist');
+            // } else {
+            if (isLinuxOS() === true || isMacOS() === true){
+                pythonInterpreter = 'python3';
             }
+            fmmtPath = path.join(path.dirname(__dirname), 'utils/FMMT/FMMT.py');
+            var commands = '';
+            /* Generate command strings for different functions of fmmt tool
+                * view(-v): View each FV and the named files within each FV: '-v inputfile outputfile, inputfiletype(.Fd/.Fv/.ffs/.sec)
+                * add(-a): Add a Ffs into a FV:'-a inputfile TargetFvName newffsfile outputfile
+                * delete(-d): Delete a Ffs from FV: '-d inputfile TargetFvName(Optional) TargetFfsName outputfile\
+                    If not given TargetFvName, all the existed target Ffs will be deleted
+                * replace(-r): Replace a Ffs in a FV: '-r inputfile TargetFvName(Optional) TargetFfsName newffsfile outputfile\
+                    If not given TargetFvName, all the existed target Ffs will be replaced with new Ffs file)
+                * extract(-e): Extract a Ffs Info: '-e inputfile TargetFvName(Optional) TargetFfsName outputfile\
+                    If not given TargetFvName, the first found target Ffs will be extracted
+            */
+            if (mode === '-v') {
+                commands = `${pythonInterpreter} ${fmmtPath} ${mode} ${filePath} -l json`;
+            } else if (mode === '-a') {
+                commands = `${pythonInterpreter} ${fmmtPath} ${mode} ${filePath} ${fvName} ${ffsPath} ${outputfile}`
+            } else if (mode === '-d') {
+                commands = `${pythonInterpreter} ${fmmtPath} ${mode} ${filePath} ${fvName} ${ffsName} ${outputfile}`
+            } else if (mode === '-r') {
+                commands = `${pythonInterpreter} ${fmmtPath} ${mode} ${filePath} ${fvName} ${ffsName} ${ffsPath} ${outputfile}`
+            } else if (mode === '-e') {
+                commands = `${pythonInterpreter} ${fmmtPath} ${mode} ${filePath} ${fvName} ${ffsName} ${outputfile}`
+            }
+
+            // create process to run FMMT.py
+            let cwd = path.join(path.dirname(__dirname));
+            const output = child_process.execSync(commands, {cwd: cwd});
+            console.log(output.toString());
+            // }
             resolve("Success");
         });
     });
@@ -383,10 +700,10 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
         if (webviewPanel.get(outName)) {
           webviewPanel.get(outName).reveal(column);
         } else {
-            await generateJsonFile(sourceFilePath, filePath);
+            await generateJsonFile(sourceFilePath, filePath, '-v');
             const panel = vscode.window.createWebviewPanel(
                 'ul',
-                outName,
+                "Fmmt Tool",
                 vscode.ViewColumn.One,
                 {
                     enableScripts: true,
@@ -405,17 +722,20 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
             
             // revice message from webview
             panel.webview.onDidReceiveMessage(async message => {
-                var resFiles = [];
-                var files = message.filepath.split(";");
-                for (let index = 0; index < files.length; index++) {
-                    var fileName = path.basename(files[index]);
-                    var filePath = path.join(path.dirname(path.dirname(__filename)), `./Layout_${fileName}.json`);
-                    await generateJsonFile(filePath, files[index]);
-                    var onDiskPath = vscode.Uri.file(filePath);
-                    resFiles.push(fileName + "," +panel.webview.asWebviewUri(onDiskPath).toString());
-                }
+                var inputFile = message.inputfile;
+                var targetPath = path.join(context.extensionPath, `${path.basename(inputFile)}.json`)
+                var resFilePath = panel.webview.asWebviewUri(vscode.Uri.file(targetPath)).toString()
+                await generateJsonFile(targetPath, inputFile, message.mode, message.outputfile, message.targetFvName, message.targetFfsName, message.targetFfsPath)
+                if (message.mode == "-e") {
+                    var ffsName = path.basename(message.outputfile)
+                    targetPath = path.join(path.dirname(path.dirname(__filename)), `./Layout_${ffsName}.json`);
+                    resFilePath = panel.webview.asWebviewUri(vscode.Uri.file(targetPath)).toString()
+                    await generateJsonFile(targetPath, message.outputfile, message.mode)
+                    panel.webview.postMessage({sourceFileName: path.basename(inputFile), resFile: resFilePath, mode: message.mode, targetFvName: message.targetFvName, targetFfsName:message.targetFfsName, targetFfsPath:message.targetFfsPath});
+                } else {
                 // post message to webview
-                panel.webview.postMessage({files: resFiles.join(";")});
+                panel.webview.postMessage({sourceFileName: path.basename(inputFile), resFile: resFilePath, mode: message.mode, targetFvName: message.targetFvName, targetFfsName:message.targetFfsName, targetFfsPath:message.targetFfsPath});
+                }
             }, undefined, context.subscriptions);
 
             // Listen for when the panel disposed

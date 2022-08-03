@@ -72,7 +72,7 @@ class FMMTParser:
                     if rootTree.isFinalChild():
                         ParTree = rootTree.Parent
                         self.FinalData += ParTree.Data.PadData
-            # If compressed section
+            # If h' section
             else:
                 Data = rootTree.Data.OriData
                 rootTree.Child = []

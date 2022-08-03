@@ -73,13 +73,13 @@ def DeleteFfs(inputfile: str, TargetFfs_name: str, outputfile: str, Fv_name: str
             Status = FfsMod.DeleteFfs()
     else:
         logger.error('Target Ffs not found!!!')
-    # 3. Log Output
+    # 4. Log Output
     InfoDict = FmmtParser.WholeFvTree.ExportTree()
     logger.debug('BinaryTree created, start parsing BinaryTree data......')
     FmmtParser.WholeFvTree.parserTree(InfoDict, FmmtParser.BinaryInfo)
     logger.debug('Done!')
     GetFormatter("").LogPrint(FmmtParser.BinaryInfo)
-    layoutfile = "test.json"
+    layoutfile = layoutfile = "{}.json".format(os.path.basename(inputfile))
     if layoutfile:
         if os.path.splitext(layoutfile)[1]:
             layoutfilename = layoutfile
@@ -89,7 +89,7 @@ def DeleteFfs(inputfile: str, TargetFfs_name: str, outputfile: str, Fv_name: str
             layoutfileformat = layoutfile.lower()
         GetFormatter(layoutfileformat).dump(InfoDict, FmmtParser.BinaryInfo, layoutfilename)
 
-    # 4. Data Encapsulation
+    # 5. Data Encapsulation
     if Status:
         logger.debug('Start encapsulating data......')
         FmmtParser.Encapsulation(FmmtParser.WholeFvTree, False)
@@ -134,13 +134,13 @@ def AddNewFfs(inputfile: str, Fv_name: str, newffsfile: str, outputfile: str) ->
     else:
         logger.error('Target Fv not found!!!')
 
-    # 3. Log Output
+    # 4. Log Output
     InfoDict = FmmtParser.WholeFvTree.ExportTree()
     logger.debug('BinaryTree created, start parsing BinaryTree data......')
     FmmtParser.WholeFvTree.parserTree(InfoDict, FmmtParser.BinaryInfo)
     logger.debug('Done!')
     GetFormatter("").LogPrint(FmmtParser.BinaryInfo)
-    layoutfile = "test.json"
+    layoutfile = layoutfile = "{}.json".format(os.path.basename(inputfile))
     if layoutfile:
         if os.path.splitext(layoutfile)[1]:
             layoutfilename = layoutfile
@@ -150,7 +150,7 @@ def AddNewFfs(inputfile: str, Fv_name: str, newffsfile: str, outputfile: str) ->
             layoutfileformat = layoutfile.lower()
         GetFormatter(layoutfileformat).dump(InfoDict, FmmtParser.BinaryInfo, layoutfilename)
 
-    # 4. Data Encapsulation
+    # 5. Data Encapsulation
     if Status:
         logger.debug('Start encapsulating data......')
         FmmtParser.Encapsulation(FmmtParser.WholeFvTree, False)
@@ -191,7 +191,23 @@ def ReplaceFfs(inputfile: str, Ffs_name: str, newffsfile: str, outputfile: str, 
             Status = FfsMod.ReplaceFfs()
     else:
         logger.error('Target Ffs not found!!!')
-    # 4. Data Encapsulation
+    # 4. Log Output
+    InfoDict = FmmtParser.WholeFvTree.ExportTree()
+    logger.debug('BinaryTree created, start parsing BinaryTree data......')
+    FmmtParser.WholeFvTree.parserTree(InfoDict, FmmtParser.BinaryInfo)
+    logger.debug('Done!')
+    GetFormatter("").LogPrint(FmmtParser.BinaryInfo)
+    layoutfile = layoutfile = "{}.json".format(os.path.basename(inputfile))
+    if layoutfile:
+        if os.path.splitext(layoutfile)[1]:
+            layoutfilename = layoutfile
+            layoutfileformat = os.path.splitext(layoutfile)[1][1:].lower()
+        else:
+            layoutfilename = "Layout_{}{}".format(os.path.basename(inputfile),".{}".format(layoutfile.lower()))
+            layoutfileformat = layoutfile.lower()
+        GetFormatter(layoutfileformat).dump(InfoDict, FmmtParser.BinaryInfo, layoutfilename)
+
+    # 5. Data Encapsulation
     if Status:
         logger.debug('Start encapsulating data......')
         FmmtParser.Encapsulation(FmmtParser.WholeFvTree, False)
@@ -228,3 +244,19 @@ def ExtractFfs(inputfile: str, Ffs_name: str, outputfile: str, Fv_name: str=None
         logger.debug('Extract ffs data is saved in {}.'.format(outputfile))
     else:
         logger.error('Target Ffs not found!!!')
+    # 3. Log Output
+    InfoDict = FmmtParser.WholeFvTree.ExportTree()
+    logger.debug('BinaryTree created, start parsing BinaryTree data......')
+    FmmtParser.WholeFvTree.parserTree(InfoDict, FmmtParser.BinaryInfo)
+    logger.debug('Done!')
+    GetFormatter("").LogPrint(FmmtParser.BinaryInfo)
+    layoutfile = layoutfile = "{}.json".format(os.path.basename(inputfile))
+    if layoutfile:
+        if os.path.splitext(layoutfile)[1]:
+            layoutfilename = layoutfile
+            layoutfileformat = os.path.splitext(layoutfile)[1][1:].lower()
+        else:
+            layoutfilename = "Layout_{}{}".format(os.path.basename(inputfile),".{}".format(layoutfile.lower()))
+            layoutfileformat = layoutfile.lower()
+        GetFormatter(layoutfileformat).dump(InfoDict, FmmtParser.BinaryInfo, layoutfilename)
+
