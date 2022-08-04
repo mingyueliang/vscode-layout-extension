@@ -179,303 +179,325 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
 
             // add fv click
             $("#uploadfile").click(function() {
-                var pDiv = document.createElement('p');
-                pDiv.id = "input"
-                document.getElementById('menuBox').append(pDiv)
+                if (judageFileType()) {
+                    var pDiv = document.createElement('p');
+                    pDiv.id = "input"
+                    document.getElementById('menuBox').append(pDiv)
 
-                var hrDiv = document.createElement('hr');
-                hrDiv.id = "hr"
-                hrDiv.innerHTML = "<hr/>";
-                document.getElementById('input').append(hrDiv)
+                    var hrDiv = document.createElement('hr');
+                    hrDiv.id = "hr"
+                    hrDiv.innerHTML = "<hr/>";
+                    document.getElementById('input').append(hrDiv)
 
-                var targetFvName = document.createElement("spwn")
-                targetFvName.innerHTML = "targetFvName:   "
-                targetFvName.id = "targetFvName"
-                document.getElementById('input').append(targetFvName)
+                    var targetFvName = document.createElement("spwn")
+                    targetFvName.innerHTML = "targetFvName:   "
+                    targetFvName.id = "targetFvName"
+                    document.getElementById('input').append(targetFvName)
 
-                var input = document.createElement("input")
-                input.type="text"
-                input.id="fvname"
-                input.placeholder="Type Target FV Name"
-                document.getElementById('input').append(input)
+                    var input = document.createElement("input")
+                    input.type="text"
+                    input.id="fvname"
+                    input.placeholder="Type Target FV Name"
+                    document.getElementById('input').append(input)
 
-                var brDiv = document.createElement('br');
-                brDiv.innerHTML = "<br/>";
-                document.getElementById('input').append(brDiv)
-                // end
+                    var brDiv = document.createElement('br');
+                    brDiv.innerHTML = "<br/>";
+                    document.getElementById('input').append(brDiv)
+                    // end
 
-                var targetFfsPathName = document.createElement("spwn")
-                targetFfsPathName.innerHTML = "targetFfsPath: "
-                targetFfsPathName.id = "targetFfsPath"
-                document.getElementById('input').append(targetFfsPathName)
+                    var targetFfsPathName = document.createElement("spwn")
+                    targetFfsPathName.innerHTML = "targetFfsPath: "
+                    targetFfsPathName.id = "targetFfsPath"
+                    document.getElementById('input').append(targetFfsPathName)
 
-                var name = document.createElement("input")
-                name.type="text"
-                name.id="ffspath"
-                name.placeholder="Type new ffs file absolute path"
-                document.getElementById('input').append(name)
+                    var name = document.createElement("input")
+                    name.type="text"
+                    name.id="ffspath"
+                    name.placeholder="Type new ffs file absolute path"
+                    document.getElementById('input').append(name)
 
-                var brDiv1 = document.createElement('br');
-                brDiv1.innerHTML = "<br/>";
-                document.getElementById('input').append(brDiv1)
+                    var brDiv1 = document.createElement('br');
+                    brDiv1.innerHTML = "<br/>";
+                    document.getElementById('input').append(brDiv1)
 
-                var brDiv2 = document.createElement('br');
-                brDiv2.innerHTML = "<br/>";
+                    var brDiv2 = document.createElement('br');
+                    brDiv2.innerHTML = "<br/>";
 
-                var OutputPath = document.createElement("spwn")
-                OutputPath.innerHTML = "outputPath:   "
-                OutputPath.id = "OutputPath"
-                document.getElementById('input').append(OutputPath)
+                    var OutputPath = document.createElement("spwn")
+                    OutputPath.innerHTML = "outputPath:   "
+                    OutputPath.id = "OutputPath"
+                    document.getElementById('input').append(OutputPath)
 
-                var OutputPathName = document.createElement("input")
-                OutputPathName.type="text"
-                OutputPathName.id="OutputPathName"
-                OutputPathName.placeholder="Type output file abs path"
+                    var OutputPathName = document.createElement("input")
+                    OutputPathName.type="text"
+                    OutputPathName.id="OutputPathName"
+                    OutputPathName.placeholder="Type output file abs path"
 
-                document.getElementById('input').append(OutputPathName)
-                document.getElementById('input').append(brDiv2)
+                    document.getElementById('input').append(OutputPathName)
+                    document.getElementById('input').append(brDiv2)
 
 
-                var button = document.createElement("input")
-                button.id="btn"
-                button.type="button"
-                button.value="ok"
-                button.onclick = function () {
-                    console.log(document.getElementById("fvname").value)
-                    console.log(document.getElementById("ffspath").value)
-                    vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:"", targetFfsPath:document.getElementById("ffspath").value, outputfile:document.getElementById("OutputPathName").value, mode:"-a"})
+                    var button = document.createElement("input")
+                    button.id="btn"
+                    button.type="button"
+                    button.value="ok"
+                    button.onclick = function () {
+                        vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:"", targetFfsPath:document.getElementById("ffspath").value, outputfile:document.getElementById("OutputPathName").value, mode:"-a"})
+                    }
+                    document.getElementById('input').append(button)
+                } else {
+                    console.log("The file type that cannot be operated when currently opened")
+                    var spwn = document.getElementById("afterLayout")
+                    spwn.innerHTML = "The currently opened file is ${outName} and cannot be added, deleted, replaced, or extract."
                 }
-                document.getElementById('input').append(button)
             })
 
             $("#delete").click(function (e) {
-                var pDiv = document.createElement('p');
-                pDiv.id = "input"
-                document.getElementById('menuBox').append(pDiv)
+                if (judageFileType()) {
+                    var pDiv = document.createElement('p');
+                    pDiv.id = "input"
+                    document.getElementById('menuBox').append(pDiv)
 
-                var hrDiv = document.createElement('hr');
-                hrDiv.id = "hr"
-                hrDiv.innerHTML = "<hr/>";
-                document.getElementById('input').append(hrDiv)
+                    var hrDiv = document.createElement('hr');
+                    hrDiv.id = "hr"
+                    hrDiv.innerHTML = "<hr/>";
+                    document.getElementById('input').append(hrDiv)
 
-                var brDiv = document.createElement('br');
-                brDiv.innerHTML = "<br/>";
+                    var brDiv = document.createElement('br');
+                    brDiv.innerHTML = "<br/>";
 
-                var targetFvName = document.createElement("spwn")
-                targetFvName.innerHTML = "targetFvName:   "
-                targetFvName.id = "targetFvName"
-                document.getElementById('input').append(targetFvName)
+                    var targetFvName = document.createElement("spwn")
+                    targetFvName.innerHTML = "targetFvName:   "
+                    targetFvName.id = "targetFvName"
+                    document.getElementById('input').append(targetFvName)
 
-                var input = document.createElement("input")
-                input.type="text"
-                input.id="fvname"
-                input.placeholder="Type Target FV Name"
+                    var input = document.createElement("input")
+                    input.type="text"
+                    input.id="fvname"
+                    input.placeholder="Type Target FV Name"
 
-                document.getElementById('input').append(input)
-                document.getElementById('input').append(brDiv)
-
-
-                var brDiv1 = document.createElement('br');
-                brDiv1.innerHTML = "<br/>";
-
-                var targetFfsName = document.createElement("spwn")
-                targetFfsName.innerHTML = "targetFfsName:  "
-                targetFfsName.id = "targetFfsName"
-                document.getElementById('input').append(targetFfsName)
-
-                var name = document.createElement("input")
-                name.type="text"
-                name.id="ffsname"
-                name.placeholder="Type Target FFS Name"
-
-                document.getElementById('input').append(name)
-                document.getElementById('input').append(brDiv1)
+                    document.getElementById('input').append(input)
+                    document.getElementById('input').append(brDiv)
 
 
-                var brDiv2 = document.createElement('br');
-                brDiv2.innerHTML = "<br/>";
+                    var brDiv1 = document.createElement('br');
+                    brDiv1.innerHTML = "<br/>";
 
-                var OutputPath = document.createElement("spwn")
-                OutputPath.innerHTML = "outputPath:    "
-                OutputPath.id = "OutputPath"
-                document.getElementById('input').append(OutputPath)
+                    var targetFfsName = document.createElement("spwn")
+                    targetFfsName.innerHTML = "targetFfsName:  "
+                    targetFfsName.id = "targetFfsName"
+                    document.getElementById('input').append(targetFfsName)
 
-                var OutputPathName = document.createElement("input")
-                OutputPathName.type="text"
-                OutputPathName.id="OutputPathName"
-                OutputPathName.placeholder="Type output file abs path"
+                    var name = document.createElement("input")
+                    name.type="text"
+                    name.id="ffsname"
+                    name.placeholder="Type Target FFS Name"
 
-                document.getElementById('input').append(OutputPathName)
-                document.getElementById('input').append(brDiv2)
+                    document.getElementById('input').append(name)
+                    document.getElementById('input').append(brDiv1)
 
 
-                var button = document.createElement("input")
-                button.id="btn"
-                button.type="button"
-                button.value="ok"
-                button.onclick = function () {
-                    console.log(document.getElementById("fvname").value)
-                    console.log(document.getElementById("ffsname").value)
-                    vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:"", outputfile:document.getElementById("OutputPathName").value, mode:"-d"})
+                    var brDiv2 = document.createElement('br');
+                    brDiv2.innerHTML = "<br/>";
+
+                    var OutputPath = document.createElement("spwn")
+                    OutputPath.innerHTML = "outputPath:    "
+                    OutputPath.id = "OutputPath"
+                    document.getElementById('input').append(OutputPath)
+
+                    var OutputPathName = document.createElement("input")
+                    OutputPathName.type="text"
+                    OutputPathName.id="OutputPathName"
+                    OutputPathName.placeholder="Type output file abs path"
+
+                    document.getElementById('input').append(OutputPathName)
+                    document.getElementById('input').append(brDiv2)
+
+
+                    var button = document.createElement("input")
+                    button.id="btn"
+                    button.type="button"
+                    button.value="ok"
+                    button.onclick = function () {
+                        console.log(document.getElementById("fvname").value)
+                        console.log(document.getElementById("ffsname").value)
+                        vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:"", outputfile:document.getElementById("OutputPathName").value, mode:"-d"})
+                    }
+                    document.getElementById('input').append(button)
+                } else {
+                    console.log("The file type that cannot be operated when currently opened")
+                    var spwn = document.getElementById("afterLayout")
+                    spwn.innerHTML = "The currently opened file is ${outName} and cannot be added, deleted, replaced, or extract."
                 }
-                document.getElementById('input').append(button)
             })
 
             $("#replace").click(function (e) {
-                var pDiv = document.createElement('p');
-                pDiv.id = "input"
-                document.getElementById('menuBox').append(pDiv)
+                if (judageFileType()) {
+                    var pDiv = document.createElement('p');
+                    pDiv.id = "input"
+                    document.getElementById('menuBox').append(pDiv)
 
-                var hrDiv = document.createElement('hr');
-                hrDiv.id = "hr"
-                hrDiv.innerHTML = "<hr/>";
-                document.getElementById('input').append(hrDiv)
+                    var hrDiv = document.createElement('hr');
+                    hrDiv.id = "hr"
+                    hrDiv.innerHTML = "<hr/>";
+                    document.getElementById('input').append(hrDiv)
 
-                var brDiv = document.createElement('br');
-                brDiv.innerHTML = "<br/>";
+                    var brDiv = document.createElement('br');
+                    brDiv.innerHTML = "<br/>";
 
-                var targetFvName = document.createElement("spwn")
-                targetFvName.innerHTML = "targetFvName:   "
-                targetFvName.id = "targetFvName"
-                document.getElementById('input').append(targetFvName)
+                    var targetFvName = document.createElement("spwn")
+                    targetFvName.innerHTML = "targetFvName:   "
+                    targetFvName.id = "targetFvName"
+                    document.getElementById('input').append(targetFvName)
 
-                var input = document.createElement("input")
-                input.type="text"
-                input.id="fvname"
-                input.placeholder="Type Target FV Name"
-                document.getElementById('input').append(input)
-                document.getElementById('input').append(brDiv)
+                    var input = document.createElement("input")
+                    input.type="text"
+                    input.id="fvname"
+                    input.placeholder="Type Target FV Name"
+                    document.getElementById('input').append(input)
+                    document.getElementById('input').append(brDiv)
 
-                var brDiv1 = document.createElement('br');
-                brDiv1.innerHTML = "<br/>";
+                    var brDiv1 = document.createElement('br');
+                    brDiv1.innerHTML = "<br/>";
 
-                var targetFfsName = document.createElement("spwn")
-                targetFfsName.innerHTML = "targetFfsName: "
-                targetFfsName.id = "targetFfsName"
+                    var targetFfsName = document.createElement("spwn")
+                    targetFfsName.innerHTML = "targetFfsName: "
+                    targetFfsName.id = "targetFfsName"
 
-                var ffsname = document.createElement("input")
-                ffsname.type="text"
-                ffsname.id="ffsname"
-                ffsname.placeholder="Type Target FFS Name"
+                    var ffsname = document.createElement("input")
+                    ffsname.type="text"
+                    ffsname.id="ffsname"
+                    ffsname.placeholder="Type Target FFS Name"
 
-                document.getElementById('input').append(targetFfsName)
-                document.getElementById('input').append(ffsname)
-                document.getElementById('input').append(brDiv1)
+                    document.getElementById('input').append(targetFfsName)
+                    document.getElementById('input').append(ffsname)
+                    document.getElementById('input').append(brDiv1)
 
-                var targetFfsPathName = document.createElement("spwn")
-                targetFfsPathName.innerHTML = "targetFfsPath: "
-                targetFfsPathName.id = "targetFfsPath"
-                document.getElementById('input').append(targetFfsPathName)
+                    var targetFfsPathName = document.createElement("spwn")
+                    targetFfsPathName.innerHTML = "targetFfsPath: "
+                    targetFfsPathName.id = "targetFfsPath"
+                    document.getElementById('input').append(targetFfsPathName)
 
-                var name = document.createElement("input")
-                name.type="text"
-                name.id="ffspath"
-                name.placeholder="Type new ffs file absolute path"
-                document.getElementById('input').append(name)
-
-
-                var brDiv2 = document.createElement('br');
-                brDiv2.innerHTML = "<br/>";
-                document.getElementById('input').append(brDiv2)
-
-                var OutputPath = document.createElement("spwn")
-                OutputPath.innerHTML = "outputPath:    "
-                OutputPath.id = "OutputPath"
-
-                var OutputPathName = document.createElement("input")
-                OutputPathName.type="text"
-                OutputPathName.id="OutputPathName"
-                OutputPathName.placeholder="Type output file abs path"
-
-                document.getElementById('input').append(OutputPath)
-                document.getElementById('input').append(OutputPathName)
-                var brDiv3 = document.createElement('br');
-                brDiv3.innerHTML = "<br/>";
-                document.getElementById('input').append(brDiv3)
+                    var name = document.createElement("input")
+                    name.type="text"
+                    name.id="ffspath"
+                    name.placeholder="Type new ffs file absolute path"
+                    document.getElementById('input').append(name)
 
 
-                var button = document.createElement("input")
-                button.id="btn"
-                button.type="button"
-                button.value="ok"
-                button.onclick = function () {
-                    console.log(document.getElementById("fvname").value)
-                    console.log(document.getElementById("ffsname").value)
-                    vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:document.getElementById("ffspath").value, outputfile:document.getElementById("OutputPathName").value, mode:"-r"})
+                    var brDiv2 = document.createElement('br');
+                    brDiv2.innerHTML = "<br/>";
+                    document.getElementById('input').append(brDiv2)
+
+                    var OutputPath = document.createElement("spwn")
+                    OutputPath.innerHTML = "outputPath:    "
+                    OutputPath.id = "OutputPath"
+
+                    var OutputPathName = document.createElement("input")
+                    OutputPathName.type="text"
+                    OutputPathName.id="OutputPathName"
+                    OutputPathName.placeholder="Type output file abs path"
+
+                    document.getElementById('input').append(OutputPath)
+                    document.getElementById('input').append(OutputPathName)
+                    var brDiv3 = document.createElement('br');
+                    brDiv3.innerHTML = "<br/>";
+                    document.getElementById('input').append(brDiv3)
+
+
+                    var button = document.createElement("input")
+                    button.id="btn"
+                    button.type="button"
+                    button.value="ok"
+                    button.onclick = function () {
+                        console.log(document.getElementById("fvname").value)
+                        console.log(document.getElementById("ffsname").value)
+                        vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:document.getElementById("ffspath").value, outputfile:document.getElementById("OutputPathName").value, mode:"-r"})
+                    }
+                    document.getElementById('input').append(button)
+                } else {
+                    console.log("The file type that cannot be operated when currently opened")
+                    var spwn = document.getElementById("afterLayout")
+                    spwn.innerHTML = "The currently opened file is ${outName} and cannot be added, deleted, replaced, or extract."
                 }
-                document.getElementById('input').append(button)
             })
 
             $("#extract").click(function (e) {
-                var pDiv = document.createElement('p');
-                pDiv.id = "input"
-                document.getElementById('menuBox').append(pDiv)
+                if (judageFileType()) {
+                    var pDiv = document.createElement('p');
+                    pDiv.id = "input"
+                    document.getElementById('menuBox').append(pDiv)
 
-                var hrDiv = document.createElement('hr');
-                hrDiv.id = "hr"
-                hrDiv.innerHTML = "<hr/>";
-                document.getElementById('input').append(hrDiv)
+                    var hrDiv = document.createElement('hr');
+                    hrDiv.id = "hr"
+                    hrDiv.innerHTML = "<hr/>";
+                    document.getElementById('input').append(hrDiv)
 
-                var brDiv = document.createElement('br');
-                brDiv.innerHTML = "<br/>";
+                    var brDiv = document.createElement('br');
+                    brDiv.innerHTML = "<br/>";
 
-                var targetFvName = document.createElement("spwn")
-                targetFvName.innerHTML = "targetFvName:   "
-                targetFvName.id = "targetFvName"
+                    var targetFvName = document.createElement("spwn")
+                    targetFvName.innerHTML = "targetFvName:   "
+                    targetFvName.id = "targetFvName"
 
-                var input = document.createElement("input")
-                input.type="text"
-                input.id="fvname"
-                input.placeholder="Type Target FV Name"
+                    var input = document.createElement("input")
+                    input.type="text"
+                    input.id="fvname"
+                    input.placeholder="Type Target FV Name"
 
-                document.getElementById('input').append(targetFvName)
-                document.getElementById('input').append(input)
-                document.getElementById('input').append(brDiv)
-
-
-                var brDiv1 = document.createElement('br');
-                brDiv1.innerHTML = "<br/>";
-
-                var targetFfsName = document.createElement("spwn")
-                targetFfsName.innerHTML = "targetFfsName: "
-                targetFfsName.id = "targetFfsName"
-
-                var name = document.createElement("input")
-                name.type="text"
-                name.id="ffsname"
-                name.placeholder="Type Target FFS Name"
-
-                document.getElementById('input').append(targetFfsName)
-                document.getElementById('input').append(name)
-                document.getElementById('input').append(brDiv1)
+                    document.getElementById('input').append(targetFvName)
+                    document.getElementById('input').append(input)
+                    document.getElementById('input').append(brDiv)
 
 
-                var brDiv2 = document.createElement('br');
-                brDiv2.innerHTML = "<br/>";
+                    var brDiv1 = document.createElement('br');
+                    brDiv1.innerHTML = "<br/>";
 
-                var OutputPath = document.createElement("spwn")
-                OutputPath.innerHTML = "outputPath:    "
-                OutputPath.id = "OutputPath"
+                    var targetFfsName = document.createElement("spwn")
+                    targetFfsName.innerHTML = "targetFfsName: "
+                    targetFfsName.id = "targetFfsName"
 
-                var OutputPathName = document.createElement("input")
-                OutputPathName.type="text"
-                OutputPathName.id="OutputPathName"
-                OutputPathName.placeholder="Type output file abs path"
+                    var name = document.createElement("input")
+                    name.type="text"
+                    name.id="ffsname"
+                    name.placeholder="Type Target FFS Name"
 
-                document.getElementById('input').append(OutputPath)
-                document.getElementById('input').append(OutputPathName)
-                document.getElementById('input').append(brDiv2)
+                    document.getElementById('input').append(targetFfsName)
+                    document.getElementById('input').append(name)
+                    document.getElementById('input').append(brDiv1)
 
-                var button = document.createElement("input")
-                button.id="btn"
-                button.type="button"
-                button.value="ok"
-                button.onclick = function () {
-                    console.log(document.getElementById("fvname").value)
-                    console.log(document.getElementById("ffsname").value)
-                    vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:"", outputfile:document.getElementById("OutputPathName").value, mode:"-e"})
+
+                    var brDiv2 = document.createElement('br');
+                    brDiv2.innerHTML = "<br/>";
+
+                    var OutputPath = document.createElement("spwn")
+                    OutputPath.innerHTML = "outputPath:    "
+                    OutputPath.id = "OutputPath"
+
+                    var OutputPathName = document.createElement("input")
+                    OutputPathName.type="text"
+                    OutputPathName.id="OutputPathName"
+                    OutputPathName.placeholder="Type output file abs path"
+
+                    document.getElementById('input').append(OutputPath)
+                    document.getElementById('input').append(OutputPathName)
+                    document.getElementById('input').append(brDiv2)
+
+                    var button = document.createElement("input")
+                    button.id="btn"
+                    button.type="button"
+                    button.value="ok"
+                    button.onclick = function () {
+                        console.log(document.getElementById("fvname").value)
+                        console.log(document.getElementById("ffsname").value)
+                        vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:"", outputfile:document.getElementById("OutputPathName").value, mode:"-e"})
+                    }
+                    document.getElementById('input').append(button)
+                } else {
+                    console.log("The file type that cannot be operated when currently opened")
+                    var spwn = document.getElementById("afterLayout")
+                    spwn.innerHTML = "The currently opened file is ${outName} and cannot be added, deleted, replaced, or extract."
                 }
-                document.getElementById('input').append(button)
             })
 
 
@@ -611,6 +633,15 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
             function GenNonDuplicateID() {
                 return Math.random().toString(36).substr(2)
             }
+
+            // Current file in [.fd,.fv]
+            function judageFileType() {
+                if ('${fileType}' == 'fd' || '${fileType}' == 'fv') {
+                    return true
+                } else {
+                    return false
+                }
+            }
         </script>
     </body>
     </html>`);
@@ -698,7 +729,7 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
             await generateJsonFile(sourceFilePath, filePath, '-v');
             const panel = vscode.window.createWebviewPanel(
                 'ul',
-                "Fmmt Tool",
+                "FMMT Tool",
                 vscode.ViewColumn.One,
                 {
                     enableScripts: true,
@@ -737,15 +768,6 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
             // This happens when the user closes the panel or when the panel is closed programmatically
             panel.onDidDispose(() => dispose(panel, outName), null, []);
         }
-};
-
-/**
- * @description
- * @param ms 
- * @returns 
- */
-export const sleep = (ms:number)=> {
-    return new Promise(resolve=>setTimeout(resolve, ms));
 };
 
 
