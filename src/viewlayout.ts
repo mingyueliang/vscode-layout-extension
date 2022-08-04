@@ -126,11 +126,6 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
         #input {
             margin:0;
         }
-
-        #fvname {
-            background-color:transparent;
-        }
-
         </style>
     </heaad>
     
@@ -723,14 +718,14 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
             // revice message from webview
             panel.webview.onDidReceiveMessage(async message => {
                 var inputFile = message.inputfile;
-                var targetPath = path.join(context.extensionPath, `${path.basename(inputFile)}.json`)
+                var targetPath = path.join(context.extensionPath, `Layout_${path.basename(inputFile)}.json`)
                 var resFilePath = panel.webview.asWebviewUri(vscode.Uri.file(targetPath)).toString()
                 await generateJsonFile(targetPath, inputFile, message.mode, message.outputfile, message.targetFvName, message.targetFfsName, message.targetFfsPath)
                 if (message.mode == "-e") {
                     var ffsName = path.basename(message.outputfile)
                     targetPath = path.join(path.dirname(path.dirname(__filename)), `./Layout_${ffsName}.json`);
                     resFilePath = panel.webview.asWebviewUri(vscode.Uri.file(targetPath)).toString()
-                    await generateJsonFile(targetPath, message.outputfile, message.mode)
+                    await generateJsonFile(targetPath, message.outputfile, '-v')
                     panel.webview.postMessage({sourceFileName: path.basename(inputFile), resFile: resFilePath, mode: message.mode, targetFvName: message.targetFvName, targetFfsName:message.targetFfsName, targetFfsPath:message.targetFfsPath});
                 } else {
                 // post message to webview
@@ -763,3 +758,22 @@ export const sleep = (ms:number)=> {
     panel.dispose();
     webviewPanel.delete(name);
 };
+
+export function clearTempFile(context: vscode.ExtensionContext) {
+    var dirPath  = context.extensionPath
+    let files = []
+    if (fs.existsSync(dirPath)) {
+        files = fs.readdirSync(dirPath)
+        files.forEach((file, index) => {
+            let curPath = dirPath + "/" + file
+            if (file.slice(0,6) == "Layout") {
+                if (fs.statSync(curPath).isDirectory()) {
+                    console.log("Not operation")
+                } else {
+                    fs.unlinkSync(curPath)
+                }
+            }
+        })
+    }                
+}
+
