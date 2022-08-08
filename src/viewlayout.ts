@@ -182,23 +182,38 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
 
 
                 var spwn = document.getElementById("afterLayout")
+                if (message.mode == '-a') {
+                    spwn.innerHTML = "Add " + message.targetFfsPath + " to FV(" + message.targetFvName +")"
+
+                } else if (message.mode == '-d') {
+                    spwn.innerHTML = "Delete " + message.targetFfsName + " from FV(" + message.targetFvName + ")"
+                } else if (message.mode == '-r') {
+                    spwn.innerHTML = "Replace " + message.targetFfsPath + " with " + message.targetFfsName + " in FV(" + message.targetFvName + ")"
+
+                } else if (message.mode == '-e') {
+                    spwn.innerHTML = "Extract " + message.targetFfsName + " from FV(" + message.targetFvName + ")"
+                }
+
                 var newFfsId = message.targetFfsName
                 var elementId = 'top1'
                 if (message.mode == '-a') {
-                    spwn.innerHTML = "Add " + message.targetFfsPath + " to FV(" + message.targetFvName +")"
                     newFfsId = message.newFfsId
+                    deleteLiNode("#top")
+                    createLayout(sourceFileName, message.sourcefile, sourceFileName.split(".").pop(), 'top', "", "", "")
+
                 } else if (message.mode == '-d') {
-                    spwn.innerHTML = "Delete " + message.targetFfsName + " from FV(" + message.targetFvName + ")"
                     deleteLiNode("#top")
-                    createLayout(sourceFileName, message.sourcefile, sourceFileName.split(".").pop(), 'top', message.targetFvName, message.targetFfsName)
+                    createLayout(sourceFileName, message.sourcefile, sourceFileName.split(".").pop(), 'top', message.targetFvName, message.targetFfsName, "")
                 } else if (message.mode == '-r') {
-                    spwn.innerHTML = "Replace " + message.targetFfsPath + " with " + message.targetFfsName + " in FV(" + message.targetFvName + ")"
                     newFfsId = message.newFfsId
-                } else if (message.mode == '-e') {
-                    spwn.innerHTML = "Extract " + message.targetFfsName + " from FV(" + message.targetFvName + ")"
                     deleteLiNode("#top")
-                    createLayout(sourceFileName, message.sourcefile, sourceFileName.split(".").pop(), 'top', message.targetFvName, message.targetFfsName)
+                    createLayout(sourceFileName, message.sourcefile, sourceFileName.split(".").pop(), 'top', message.targetFvName, message.targetFfsName, message.targetFfsName)
+
+                } else if (message.mode == '-e') {
+                    deleteLiNode("#top")
+                    createLayout(sourceFileName, message.sourcefile, sourceFileName.split(".").pop(), 'top', message.targetFvName, message.targetFfsName, "")
                 }
+
                 deleteLiNode("#"+elementId)
                 createLayout(sourceFileName, file, sourceFileName.split(".").pop(), elementId, message.targetFvName, message.newFfsId)
 
@@ -559,7 +574,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
 
 
             // Create file layout
-            function createLayout(sourceFileName, jsonPath, fileType, wrap, fvName, newFfsId) {
+            function createLayout(sourceFileName, jsonPath, fileType, wrap, fvName, newFfsId, oldFfsName) {
                 var ul = document.getElementById(wrap)
                 var li = document.createElement('li')
                 var oneIdName = fileType + GenNonDuplicateID()
@@ -609,12 +624,28 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                                 ffsli.setAttribute('id', ffsIdName)
                                 //
                                 if (newFfsId) {
-                                    if (fvObj[name] == fvName) {
-                                        if (ffsObj['Name'] == newFfsId) {
-                                            ffsli.style.backgroundColor = 'green'
-                                        }
+                                    if (wrap == "top") {
+                                        if (fvObj[name] == fvName) {
+                                            if (ffsObj['Name'] == newFfsId) {
+                                                ffsli.style.backgroundColor = 'green'
+                                            }
+                                        }    
+                                    }else if (wrap == "top1") {
+                                        if (fvObj[name] == fvName) {
+                                            if (ffsObj['Name'] == newFfsId) {
+                                                ffsli.style.backgroundColor = 'yellow'
+                                            }
+                                        }    
                                     }
                                 }
+
+                                // if (newFfsId) {
+                                //     if (fvObj[name] == fvName) {
+                                //         if (ffsObj['Name'] == newFfsId) {
+                                //             ffsli.style.backgroundColor = 'green'
+                                //         }
+                                //     }    
+                                // }
 
                                 ffsul.appendChild(ffsli)
                                 setInnerText(ffsli, ffsObj['Name']+' '+ffsObj['Type']+' Offset='+ffsObj['Offset']+' Size='+ffsObj['Size'])
@@ -666,7 +697,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
 
             // Current file in [.fd,.fv]
             function judageFileType() {
-                if ('${fileType}' == 'fd' || '${fileType}' == 'fv') {
+                if ('${fileType}'.toLowerCase() == 'fd' || '${fileType}'.toLowerCase() == 'fv') {
                     return true
                 } else {
                     return false
