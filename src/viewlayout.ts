@@ -116,16 +116,36 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
 
         #btn {
             width: 70px;
-            margin-left: 60px;
+            margin-left: 10px;
+            float: right
         }
 
         #hr {
             border:0px;
+            margin-top: 0px;
+            margin-bottom: 0px;
         }
 
         #input {
             margin:0;
         }
+
+        #targetFvName {
+            margin-left:2px;
+        }
+
+        #targetFfsPath {
+            margin-left:2px;
+        }
+
+        #OutputPath {
+            margin-left:2px;
+        }
+
+        #targetFfsName {
+            margin-left:2px;
+        }
+
         </style>
     </heaad>
     
@@ -160,18 +180,27 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                 var file = message.resFile;
                 var sourceFileName = message.sourceFileName
 
+
                 var spwn = document.getElementById("afterLayout")
+                var newFfsId = message.targetFfsName
+                var elementId = 'top1'
                 if (message.mode == '-a') {
                     spwn.innerHTML = "Add " + message.targetFfsPath + " to FV(" + message.targetFvName +")"
+                    newFfsId = message.newFfsId
                 } else if (message.mode == '-d') {
                     spwn.innerHTML = "Delete " + message.targetFfsName + " from FV(" + message.targetFvName + ")"
+                    deleteLiNode("#top")
+                    createLayout(sourceFileName, message.sourcefile, sourceFileName.split(".").pop(), 'top', message.targetFvName, message.targetFfsName)
                 } else if (message.mode == '-r') {
                     spwn.innerHTML = "Replace " + message.targetFfsPath + " with " + message.targetFfsName + " in FV(" + message.targetFvName + ")"
+                    newFfsId = message.newFfsId
                 } else if (message.mode == '-e') {
                     spwn.innerHTML = "Extract " + message.targetFfsName + " from FV(" + message.targetFvName + ")"
+                    deleteLiNode("#top")
+                    createLayout(sourceFileName, message.sourcefile, sourceFileName.split(".").pop(), 'top', message.targetFvName, message.targetFfsName)
                 }
-                deleteLiNode("#top1")
-                createLayout(sourceFileName, file, sourceFileName.split(".").pop(), 'top1')
+                deleteLiNode("#"+elementId)
+                createLayout(sourceFileName, file, sourceFileName.split(".").pop(), elementId, message.targetFvName, message.newFfsId)
 
                 var input = document.getElementById("input")
                 document.getElementById("menuBox").removeChild(input)
@@ -200,10 +229,6 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     input.placeholder="Type Target FV Name"
                     document.getElementById('input').append(input)
 
-                    var brDiv = document.createElement('br');
-                    brDiv.innerHTML = "<br/>";
-                    document.getElementById('input').append(brDiv)
-                    // end
 
                     var targetFfsPathName = document.createElement("spwn")
                     targetFfsPathName.innerHTML = "targetFfsPath: "
@@ -216,13 +241,6 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     name.placeholder="Type new ffs file absolute path"
                     document.getElementById('input').append(name)
 
-                    var brDiv1 = document.createElement('br');
-                    brDiv1.innerHTML = "<br/>";
-                    document.getElementById('input').append(brDiv1)
-
-                    var brDiv2 = document.createElement('br');
-                    brDiv2.innerHTML = "<br/>";
-
                     var OutputPath = document.createElement("spwn")
                     OutputPath.innerHTML = "outputPath:   "
                     OutputPath.id = "OutputPath"
@@ -232,9 +250,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     OutputPathName.type="text"
                     OutputPathName.id="OutputPathName"
                     OutputPathName.placeholder="Type output file abs path"
-
                     document.getElementById('input').append(OutputPathName)
-                    document.getElementById('input').append(brDiv2)
 
 
                     var button = document.createElement("input")
@@ -249,6 +265,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     console.log("The file type that cannot be operated when currently opened")
                     var spwn = document.getElementById("afterLayout")
                     spwn.innerHTML = "The currently opened file is ${outName} and cannot be added, deleted, replaced, or extract."
+                    spwn.style.backgroundColor = 'red'
                 }
             })
 
@@ -277,7 +294,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     input.placeholder="Type Target FV Name"
 
                     document.getElementById('input').append(input)
-                    document.getElementById('input').append(brDiv)
+                    // document.getElementById('input').append(brDiv)
 
 
                     var brDiv1 = document.createElement('br');
@@ -294,7 +311,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     name.placeholder="Type Target FFS Name"
 
                     document.getElementById('input').append(name)
-                    document.getElementById('input').append(brDiv1)
+                    // document.getElementById('input').append(brDiv1)
 
 
                     var brDiv2 = document.createElement('br');
@@ -311,7 +328,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     OutputPathName.placeholder="Type output file abs path"
 
                     document.getElementById('input').append(OutputPathName)
-                    document.getElementById('input').append(brDiv2)
+                    // document.getElementById('input').append(brDiv2)
 
 
                     var button = document.createElement("input")
@@ -328,6 +345,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     console.log("The file type that cannot be operated when currently opened")
                     var spwn = document.getElementById("afterLayout")
                     spwn.innerHTML = "The currently opened file is ${outName} and cannot be added, deleted, replaced, or extract."
+                    spwn.style.backgroundColor = 'red'
                 }
             })
 
@@ -355,7 +373,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     input.id="fvname"
                     input.placeholder="Type Target FV Name"
                     document.getElementById('input').append(input)
-                    document.getElementById('input').append(brDiv)
+                    // document.getElementById('input').append(brDiv)
 
                     var brDiv1 = document.createElement('br');
                     brDiv1.innerHTML = "<br/>";
@@ -371,7 +389,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
 
                     document.getElementById('input').append(targetFfsName)
                     document.getElementById('input').append(ffsname)
-                    document.getElementById('input').append(brDiv1)
+                    // document.getElementById('input').append(brDiv1)
 
                     var targetFfsPathName = document.createElement("spwn")
                     targetFfsPathName.innerHTML = "targetFfsPath: "
@@ -387,7 +405,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
 
                     var brDiv2 = document.createElement('br');
                     brDiv2.innerHTML = "<br/>";
-                    document.getElementById('input').append(brDiv2)
+                    // document.getElementById('input').append(brDiv2)
 
                     var OutputPath = document.createElement("spwn")
                     OutputPath.innerHTML = "outputPath:    "
@@ -402,7 +420,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     document.getElementById('input').append(OutputPathName)
                     var brDiv3 = document.createElement('br');
                     brDiv3.innerHTML = "<br/>";
-                    document.getElementById('input').append(brDiv3)
+                    // document.getElementById('input').append(brDiv3)
 
 
                     var button = document.createElement("input")
@@ -419,6 +437,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     console.log("The file type that cannot be operated when currently opened")
                     var spwn = document.getElementById("afterLayout")
                     spwn.innerHTML = "The currently opened file is ${outName} and cannot be added, deleted, replaced, or extract."
+                    spwn.style.backgroundColor = 'red'
                 }
             })
 
@@ -447,7 +466,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
 
                     document.getElementById('input').append(targetFvName)
                     document.getElementById('input').append(input)
-                    document.getElementById('input').append(brDiv)
+                    // document.getElementById('input').append(brDiv)
 
 
                     var brDiv1 = document.createElement('br');
@@ -464,7 +483,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
 
                     document.getElementById('input').append(targetFfsName)
                     document.getElementById('input').append(name)
-                    document.getElementById('input').append(brDiv1)
+                    // document.getElementById('input').append(brDiv1)
 
 
                     var brDiv2 = document.createElement('br');
@@ -481,7 +500,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
 
                     document.getElementById('input').append(OutputPath)
                     document.getElementById('input').append(OutputPathName)
-                    document.getElementById('input').append(brDiv2)
+                    // document.getElementById('input').append(brDiv2)
 
                     var button = document.createElement("input")
                     button.id="btn"
@@ -497,6 +516,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     console.log("The file type that cannot be operated when currently opened")
                     var spwn = document.getElementById("afterLayout")
                     spwn.innerHTML = "The currently opened file is ${outName} and cannot be added, deleted, replaced, or extract."
+                    spwn.style.backgroundColor = 'red'
                 }
             })
 
@@ -504,9 +524,10 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
             // main function
             window.onload = function() {
                 // create list
-                createLayout('${outName}', '${jsonPath}', '${fileType}', 'top')
+                createLayout('${outName}', '${jsonPath}', '${fileType}', 'top', [])
                 showOrHideList()
             }
+
 
             // Realize collapsible list
             function showOrHideList(){
@@ -538,7 +559,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
 
 
             // Create file layout
-            function createLayout(sourceFileName, jsonPath, fileType, wrap) {
+            function createLayout(sourceFileName, jsonPath, fileType, wrap, fvName, newFfsId) {
                 var ul = document.getElementById(wrap)
                 var li = document.createElement('li')
                 var oneIdName = fileType + GenNonDuplicateID()
@@ -568,7 +589,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                             } else if (fileType.search(/fd|fv/gi) !== -1) {
                                 name = 'FvNameGuid'
                             }
-                            if (fileType.search(/sec/gi !== -1)) {
+                            if (fileType.search(/sec/gi) !== -1) {
                                 setInnerText(fvli, fvObj['Name']+' Size='+fvObj['Size']+' Offset='+fvObj['Offset']+' Files='+fvObj['FilesNum'])
                             } else {
                                 setInnerText(fvli, fvObj['Name']+'('+fvObj[name]+')'+' Size='+fvObj['Size']+' Offset='+fvObj['Offset']+' Files='+fvObj['FilesNum'])
@@ -586,6 +607,15 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                                 var ffsli = document.createElement('li')
                                 var ffsIdName = GenNonDuplicateID()
                                 ffsli.setAttribute('id', ffsIdName)
+                                //
+                                if (newFfsId) {
+                                    if (fvObj[name] == fvName) {
+                                        if (ffsObj['Name'] == newFfsId) {
+                                            ffsli.style.backgroundColor = 'green'
+                                        }
+                                    }
+                                }
+
                                 ffsul.appendChild(ffsli)
                                 setInnerText(ffsli, ffsObj['Name']+' '+ffsObj['Type']+' Offset='+ffsObj['Offset']+' Size='+ffsObj['Size'])
 
@@ -749,18 +779,26 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
             // revice message from webview
             panel.webview.onDidReceiveMessage(async message => {
                 var inputFile = message.inputfile;
-                var targetPath = path.join(context.extensionPath, `Layout_${path.basename(inputFile)}.json`)
+                var sourceFile = panel.webview.asWebviewUri(vscode.Uri.file(sourceFilePath)).toString()
+                var targetPath = path.join(context.extensionPath, `Layout_new_${path.basename(inputFile)}.json`)
                 var resFilePath = panel.webview.asWebviewUri(vscode.Uri.file(targetPath)).toString()
                 await generateJsonFile(targetPath, inputFile, message.mode, message.outputfile, message.targetFvName, message.targetFfsName, message.targetFfsPath)
                 if (message.mode == "-e") {
                     var ffsName = path.basename(message.outputfile)
-                    targetPath = path.join(path.dirname(path.dirname(__filename)), `./Layout_${ffsName}.json`);
+                    targetPath = path.join(path.dirname(path.dirname(__filename)), `Layout_${ffsName}.json`);
                     resFilePath = panel.webview.asWebviewUri(vscode.Uri.file(targetPath)).toString()
                     await generateJsonFile(targetPath, message.outputfile, '-v')
-                    panel.webview.postMessage({sourceFileName: path.basename(inputFile), resFile: resFilePath, mode: message.mode, targetFvName: message.targetFvName, targetFfsName:message.targetFfsName, targetFfsPath:message.targetFfsPath});
+                    panel.webview.postMessage({sourcefile: sourceFile, sourceFileName: path.basename(inputFile), resFile: resFilePath, mode: message.mode, targetFvName: message.targetFvName, targetFfsName:message.targetFfsName, targetFfsPath:message.targetFfsPath});
                 } else {
-                // post message to webview
-                panel.webview.postMessage({sourceFileName: path.basename(inputFile), resFile: resFilePath, mode: message.mode, targetFvName: message.targetFvName, targetFfsName:message.targetFfsName, targetFfsPath:message.targetFfsPath});
+                    var newFfsId
+                    if (message.mode == '-a' || message.mode == '-r') {
+                        var newFfsName = path.basename(message.targetFfsPath)
+                        var ffsJsonPath = path.join(path.dirname(path.dirname(__filename)), `Layout_${newFfsName}.json`);
+                        await generateJsonFile(ffsJsonPath, message.targetFfsPath, '-v')
+                        var newFfsId = readJsonFile(ffsJsonPath)
+                    }
+                    // post message to webview
+                    panel.webview.postMessage({sourcefile: sourceFile, sourceFileName: path.basename(inputFile), resFile: resFilePath, mode: message.mode, targetFvName: message.targetFvName, targetFfsName:message.targetFfsName, targetFfsPath:message.targetFfsPath, newFfsId: newFfsId});
                 }
             }, undefined, context.subscriptions);
 
@@ -797,5 +835,15 @@ export function clearTempFile(context: vscode.ExtensionContext) {
             }
         })
     }                
+}
+
+
+export function readJsonFile(file:fs.PathLike) {
+    if (fs.existsSync(file)) {
+        let userJson = JSON.parse(fs.readFileSync(file, 'utf-8'))
+        let ffsObj = userJson[Object.keys(userJson)[0]]['Files'][0]
+        let ffsName = ffsObj[Object.keys(ffsObj)[0]]['Name']
+        return ffsName
+    }
 }
 

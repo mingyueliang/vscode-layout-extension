@@ -79,7 +79,7 @@ def DeleteFfs(inputfile: str, TargetFfs_name: str, outputfile: str, Fv_name: str
     FmmtParser.WholeFvTree.parserTree(InfoDict, FmmtParser.BinaryInfo)
     logger.debug('Done!')
     GetFormatter("").LogPrint(FmmtParser.BinaryInfo)
-    layoutfile = "Layout_{}.json".format(os.path.basename(inputfile))
+    layoutfile = "Layout_new_{}.json".format(os.path.basename(inputfile))
     if layoutfile:
         if os.path.splitext(layoutfile)[1]:
             layoutfilename = layoutfile
@@ -140,7 +140,7 @@ def AddNewFfs(inputfile: str, Fv_name: str, newffsfile: str, outputfile: str) ->
     FmmtParser.WholeFvTree.parserTree(InfoDict, FmmtParser.BinaryInfo)
     logger.debug('Done!')
     GetFormatter("").LogPrint(FmmtParser.BinaryInfo)
-    layoutfile = "Layout_{}.json".format(os.path.basename(inputfile))
+    layoutfile = "Layout_new_{}.json".format(os.path.basename(inputfile))
     if layoutfile:
         if os.path.splitext(layoutfile)[1]:
             layoutfilename = layoutfile
@@ -197,7 +197,7 @@ def ReplaceFfs(inputfile: str, Ffs_name: str, newffsfile: str, outputfile: str, 
     FmmtParser.WholeFvTree.parserTree(InfoDict, FmmtParser.BinaryInfo)
     logger.debug('Done!')
     GetFormatter("").LogPrint(FmmtParser.BinaryInfo)
-    layoutfile = "Layout_{}.json".format(os.path.basename(inputfile))
+    layoutfile = "Layout_new_{}.json".format(os.path.basename(inputfile))
     if layoutfile:
         if os.path.splitext(layoutfile)[1]:
             layoutfilename = layoutfile
@@ -250,7 +250,7 @@ def ExtractFfs(inputfile: str, Ffs_name: str, outputfile: str, Fv_name: str=None
     FmmtParser.WholeFvTree.parserTree(InfoDict, FmmtParser.BinaryInfo)
     logger.debug('Done!')
     GetFormatter("").LogPrint(FmmtParser.BinaryInfo)
-    layoutfile = "Layout_{}.json".format(os.path.basename(inputfile))
+    layoutfile = "Layout_new_{}.json".format(os.path.basename(inputfile))
     if layoutfile:
         if os.path.splitext(layoutfile)[1]:
             layoutfilename = layoutfile
