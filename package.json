@@ -1,6 +1,6 @@
 {
-    "name": "vscode-view-fd-fv-ffs-sec-layout-extension",
-    "displayName": "vscode-view-fd_fv_ffs_sec-layout-extension",
+    "name": "vscode-view-layout-extension",
+    "displayName": "vscode-view-layout-extension",
     "description": "",
     "publisher": "MingYueLiang",
     "version": "0.0.1",
