@@ -7,6 +7,7 @@ import { resolve } from 'path';
 
 
 let webviewPanel = new Map();
+let tempFile = new Map();
 let pythonInterpreter = 'py -3';
 let fmmtPath = '';
 let fileTypeList = ["fd", "fv", "ffs", "sec"];
@@ -152,7 +153,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
     <body>
         <div id="menuBox">
             <ul class="menu">
-                <li>FV Info</li>
+                <li id="newfile">FV Info</li>
                 <li id="uploadfile">Add FFS</li>
                 <li id="delete">Delete FFS</li>
                 <li id="replace">Replace FFS</li>
@@ -212,6 +213,11 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                 } else if (message.mode == '-e') {
                     deleteLiNode("#top")
                     createLayout(sourceFileName, message.sourcefile, sourceFileName.split(".").pop(), 'top', message.targetFvName, message.targetFfsName, "")
+                } else if (message.mode == '-v') {
+                    deleteLiNode("#top1")
+                    elementId = 'top'
+                    // post clear message to vscode
+                    vscode.postMessage({command:'clear'})
                 }
 
                 deleteLiNode("#"+elementId)
@@ -273,7 +279,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     button.type="button"
                     button.value="ok"
                     button.onclick = function () {
-                        vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:"", targetFfsPath:document.getElementById("ffspath").value, outputfile:document.getElementById("OutputPathName").value, mode:"-a"})
+                        vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:"", targetFfsPath:document.getElementById("ffspath").value, outputfile:document.getElementById("OutputPathName").value, mode:"-a", command:""})
                     }
                     document.getElementById('input').append(button)
                 } else {
@@ -353,7 +359,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     button.onclick = function () {
                         console.log(document.getElementById("fvname").value)
                         console.log(document.getElementById("ffsname").value)
-                        vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:"", outputfile:document.getElementById("OutputPathName").value, mode:"-d"})
+                        vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:"", outputfile:document.getElementById("OutputPathName").value, mode:"-d",command:""})
                     }
                     document.getElementById('input').append(button)
                 } else {
@@ -445,7 +451,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     button.onclick = function () {
                         console.log(document.getElementById("fvname").value)
                         console.log(document.getElementById("ffsname").value)
-                        vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:document.getElementById("ffspath").value, outputfile:document.getElementById("OutputPathName").value, mode:"-r"})
+                        vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:document.getElementById("ffspath").value, outputfile:document.getElementById("OutputPathName").value, mode:"-r", command:""})
                     }
                     document.getElementById('input').append(button)
                 } else {
@@ -524,7 +530,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                     button.onclick = function () {
                         console.log(document.getElementById("fvname").value)
                         console.log(document.getElementById("ffsname").value)
-                        vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:"", outputfile:document.getElementById("OutputPathName").value, mode:"-e"})
+                        vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:"", outputfile:document.getElementById("OutputPathName").value, mode:"-e",command:""})
                     }
                     document.getElementById('input').append(button)
                 } else {
@@ -639,14 +645,6 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                                     }
                                 }
 
-                                // if (newFfsId) {
-                                //     if (fvObj[name] == fvName) {
-                                //         if (ffsObj['Name'] == newFfsId) {
-                                //             ffsli.style.backgroundColor = 'green'
-                                //         }
-                                //     }    
-                                // }
-
                                 ffsul.appendChild(ffsli)
                                 setInnerText(ffsli, ffsObj['Name']+' '+ffsObj['Type']+' Offset='+ffsObj['Offset']+' Size='+ffsObj['Size'])
 
@@ -733,9 +731,6 @@ module.exports =function(context: vscode.ExtensionContext){
 function generateJsonFile(sourceFilePath:string, filePath:string, mode:string, outputfile?:string, fvName?:string, ffsName?:string, ffsPath?:string) {
     return new Promise((resolve)=>{
         fs.stat(sourceFilePath, function(err, stat) {
-            // if (stat&&stat.isFile()){
-            //     console.log('json file is exist');
-            // } else {
             if (isLinuxOS() === true || isMacOS() === true){
                 pythonInterpreter = 'python3';
             }
@@ -767,7 +762,6 @@ function generateJsonFile(sourceFilePath:string, filePath:string, mode:string, o
             let cwd = path.join(path.dirname(__dirname));
             const output = child_process.execSync(commands, {cwd: cwd});
             console.log(output.toString());
-            // }
             resolve("Success");
         });
     });
@@ -787,6 +781,7 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
         if (webviewPanel.get(outName)) {
           webviewPanel.get(outName).reveal(column);
         } else {
+            tempFile.set(outName, [sourceFilePath])
             await generateJsonFile(sourceFilePath, filePath, '-v');
             const panel = vscode.window.createWebviewPanel(
                 'ul',
@@ -812,24 +807,56 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
                 var inputFile = message.inputfile;
                 var sourceFile = panel.webview.asWebviewUri(vscode.Uri.file(sourceFilePath)).toString()
                 var targetPath = path.join(context.extensionPath, `Layout_new_${path.basename(inputFile)}.json`)
+                tempFile.get(outName).push(targetPath)
                 var resFilePath = panel.webview.asWebviewUri(vscode.Uri.file(targetPath)).toString()
                 await generateJsonFile(targetPath, inputFile, message.mode, message.outputfile, message.targetFvName, message.targetFfsName, message.targetFfsPath)
                 if (message.mode == "-e") {
                     var ffsName = path.basename(message.outputfile)
                     targetPath = path.join(path.dirname(path.dirname(__filename)), `Layout_${ffsName}.json`);
+                    tempFile.get(outName).push(targetPath)
                     resFilePath = panel.webview.asWebviewUri(vscode.Uri.file(targetPath)).toString()
                     await generateJsonFile(targetPath, message.outputfile, '-v')
-                    panel.webview.postMessage({sourcefile: sourceFile, sourceFileName: path.basename(inputFile), resFile: resFilePath, mode: message.mode, targetFvName: message.targetFvName, targetFfsName:message.targetFfsName, targetFfsPath:message.targetFfsPath});
+                    panel.webview.postMessage({
+                        sourcefile: sourceFile, 
+                        sourceFileName: path.basename(inputFile), 
+                        resFile: resFilePath, 
+                        mode: message.mode, 
+                        targetFvName: message.targetFvName, 
+                        targetFfsName:message.targetFfsName, 
+                        targetFfsPath:message.targetFfsPath
+                    });
+                } else if (message.mode == '-v') {
+                    await generateJsonFile(targetPath, inputFile, message.mode)
+                    panel.webview.postMessage({
+                        sourcefile: sourceFile,
+                        sourceFileName: path.basename(inputFile),
+                        resFile: resFilePath,
+                        mode: message.mode,
+                        targetFvName: "",
+                        targetFfsName:"",
+                        targetFfsPath:"",
+                        newFfsId: ""
+                    });
                 } else {
                     var newFfsId
                     if (message.mode == '-a' || message.mode == '-r') {
                         var newFfsName = path.basename(message.targetFfsPath)
                         var ffsJsonPath = path.join(path.dirname(path.dirname(__filename)), `Layout_${newFfsName}.json`);
+                        tempFile.get(outName).push(ffsJsonPath)
                         await generateJsonFile(ffsJsonPath, message.targetFfsPath, '-v')
                         var newFfsId = readJsonFile(ffsJsonPath)
                     }
                     // post message to webview
-                    panel.webview.postMessage({sourcefile: sourceFile, sourceFileName: path.basename(inputFile), resFile: resFilePath, mode: message.mode, targetFvName: message.targetFvName, targetFfsName:message.targetFfsName, targetFfsPath:message.targetFfsPath, newFfsId: newFfsId});
+                    panel.webview.postMessage({
+                        sourcefile: sourceFile,
+                        sourceFileName: path.basename(inputFile),
+                        resFile: resFilePath,
+                        mode: message.mode,
+                        targetFvName: message.targetFvName,
+                        targetFfsName:message.targetFfsName,
+                        targetFfsPath:message.targetFfsPath,
+                        newFfsId: newFfsId
+                    });
                 }
             }, undefined, context.subscriptions);
 
@@ -848,27 +875,30 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
  function dispose(panel: vscode.WebviewPanel, name: string){
     panel.dispose();
     webviewPanel.delete(name);
+    clearTempFile(name)
+    tempFile.delete(name)
 };
 
-export function clearTempFile(context: vscode.ExtensionContext) {
-    var dirPath  = context.extensionPath
-    let files = []
-    if (fs.existsSync(dirPath)) {
-        files = fs.readdirSync(dirPath)
-        files.forEach((file, index) => {
-            let curPath = dirPath + "/" + file
-            if (file.slice(0,6) == "Layout") {
-                if (fs.statSync(curPath).isDirectory()) {
-                    console.log("Not operation")
-                } else {
-                    fs.unlinkSync(curPath)
-                }
+/**
+ * 
+ * @param name Current open file.
+ */
+export function clearTempFile(name: string) {
+    var files = tempFile.get(name);
+    files.forEach((file:string) => {
+        fs.stat(file, function(err, stat){
+            if (stat&&stat.isFile()){
+                fs.unlinkSync(file)
             }
         })
-    }                
+    })
 }
 
-
+/**
+ * 
+ * @param file Current ffs file
+ * @returns guidID(ffs name) of Current ffs file
+ */
 export function readJsonFile(file:fs.PathLike) {
     if (fs.existsSync(file)) {
         let userJson = JSON.parse(fs.readFileSync(file, 'utf-8'))
