@@ -1,7 +1,7 @@
 # vscode-layout-extension README
 
 ## Run extension on location
-- githun link: https://github.com/mingyueliang/vscode-buildplatform-extension.git
+- github link: https://github.com/mingyueliang/vscode-buildplatform-extension.git
 - git clone https://github.com/mingyueliang/vscode-buildplatform-extension.git
 - npm install
 - run F5
