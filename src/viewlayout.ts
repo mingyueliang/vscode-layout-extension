@@ -147,6 +147,24 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
             margin-left:2px;
         }
 
+        #fvname {
+            width:100px;
+        }
+
+        #ffsname {
+            width:100px;
+        }
+
+        #ffspath {
+            width:100px;
+        }
+
+        #OutputPathName {
+            width:100px;
+        }
+
+
+
         </style>
     </heaad>
     
@@ -213,6 +231,8 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                 } else if (message.mode == '-e') {
                     deleteLiNode("#top")
                     createLayout(sourceFileName, message.sourcefile, sourceFileName.split(".").pop(), 'top', message.targetFvName, message.targetFfsName, "")
+                    var index = message.outputFile.lastIndexOf("/")
+                    var sourceFileName = message.outputFile.substr(index+1)
                 } else if (message.mode == '-v') {
                     deleteLiNode("#top1")
                     elementId = 'top'
@@ -639,7 +659,7 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                                     }else if (wrap == "top1") {
                                         if (fvObj[name] == fvName) {
                                             if (ffsObj['Name'] == newFfsId) {
-                                                ffsli.style.backgroundColor = 'yellow'
+                                                ffsli.style.backgroundColor = 'darkorange'
                                             }
                                         }    
                                     }
@@ -823,7 +843,8 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
                         mode: message.mode, 
                         targetFvName: message.targetFvName, 
                         targetFfsName:message.targetFfsName, 
-                        targetFfsPath:message.targetFfsPath
+                        targetFfsPath:message.targetFfsPath,
+                        outputFile:message.outputfile
                     });
                 } else if (message.mode == '-v') {
                     await generateJsonFile(targetPath, inputFile, message.mode)
