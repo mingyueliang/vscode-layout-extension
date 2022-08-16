@@ -231,14 +231,15 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                 } else if (message.mode == '-e') {
                     deleteLiNode("#top")
                     createLayout(sourceFileName, message.sourcefile, sourceFileName.split(".").pop(), 'top', message.targetFvName, message.targetFfsName, "")
-                    var index = message.outputFile.lastIndexOf("/")
-                    var sourceFileName = message.outputFile.substr(index+1)
                 } else if (message.mode == '-v') {
                     deleteLiNode("#top1")
                     elementId = 'top'
                     // post clear message to vscode
                     vscode.postMessage({command:'clear'})
                 }
+
+                var index = message.outputFile.lastIndexOf("/")
+                var sourceFileName = message.outputFile.substr(index+1)
 
                 deleteLiNode("#"+elementId)
                 createLayout(sourceFileName, file, sourceFileName.split(".").pop(), elementId, message.targetFvName, message.newFfsId)
@@ -846,18 +847,6 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
                         targetFfsPath:message.targetFfsPath,
                         outputFile:message.outputfile
                     });
-                } else if (message.mode == '-v') {
-                    await generateJsonFile(targetPath, inputFile, message.mode)
-                    panel.webview.postMessage({
-                        sourcefile: sourceFile,
-                        sourceFileName: path.basename(inputFile),
-                        resFile: resFilePath,
-                        mode: message.mode,
-                        targetFvName: "",
-                        targetFfsName:"",
-                        targetFfsPath:"",
-                        newFfsId: ""
-                    });
                 } else {
                     var newFfsId
                     if (message.mode == '-a' || message.mode == '-r') {
@@ -876,7 +865,8 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
                         targetFvName: message.targetFvName,
                         targetFfsName:message.targetFfsName,
                         targetFfsPath:message.targetFfsPath,
-                        newFfsId: newFfsId
+                        newFfsId: newFfsId,
+                        outputFile:message.outputfile
                     });
                 }
             }, undefined, context.subscriptions);
