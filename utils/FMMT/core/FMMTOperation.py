@@ -182,9 +182,13 @@ def ReplaceFfs(inputfile: str, Ffs_name: str, newffsfile: str, outputfile: str, 
     new_ffs.Data.PadData = GetPadSize(new_ffs.Data.Size, FFS_COMMON_ALIGNMENT) * b'\xff'
     FmmtParser.WholeFvTree.FindNode(Ffs_name, FmmtParser.WholeFvTree.Findlist)
     if Fv_name:
-        for item in FmmtParser.WholeFvTree.Findlist:
-            if item.Parent.key != Fv_name and item.Parent.Data.Name != Fv_name:
-                FmmtParser.WholeFvTree.Findlist.remove(item)
+        FindNum = len(FmmtParser.WholeFvTree.Findlist)
+        for index in range(FindNum - 1, -1, -1):
+            if FmmtParser.WholeFvTree.Findlist[index].Parent.key != Fv_name and \
+                    FmmtParser.WholeFvTree.Findlist[
+                        index].Parent.Data.Name != Fv_name:
+                FmmtParser.WholeFvTree.Findlist.remove(
+                    FmmtParser.WholeFvTree.Findlist[index])
     if FmmtParser.WholeFvTree.Findlist != []:
         for TargetFfs in FmmtParser.WholeFvTree.Findlist:
             FfsMod = FvHandler(newFmmtParser.WholeFvTree.Child[0], TargetFfs)

@@ -155,16 +155,16 @@ class FvHandler:
     def CompressData(self, TargetTree) -> None:
         TreePath = TargetTree.GetTreePath()
         pos = len(TreePath)
-        self.Status = False
+        # self.Status = False
         while pos:
-            if not self.Status:
-                if TreePath[pos-1].type == SECTION_TREE and TreePath[pos-1].Data.Type == 0x02:
-                    self.CompressSectionData(TreePath[pos-1], None, TreePath[pos-1].Data.ExtHeader.SectionDefinitionGuid)
+            # if not self.Status:
+            if TreePath[pos-1].type == SECTION_TREE and TreePath[pos-1].Data.Type == 0x02:
+                self.CompressSectionData(TreePath[pos-1], None, TreePath[pos-1].Data.ExtHeader.SectionDefinitionGuid)
+            else:
+                if pos == len(TreePath):
+                    self.CompressSectionData(TreePath[pos-1], pos)
                 else:
-                    if pos == len(TreePath):
-                        self.CompressSectionData(TreePath[pos-1], pos)
-                    else:
-                        self.CompressSectionData(TreePath[pos-1], None)
+                    self.CompressSectionData(TreePath[pos-1], None)
             pos -= 1
 
     def CompressSectionData(self, TargetTree, pos: int, GuidTool=None) -> None:
