@@ -12,6 +12,23 @@ let pythonInterpreter = 'py -3';
 let fmmtPath = '';
 let fileTypeList = ["fd", "fv", "ffs", "sec"];
 
+function isFileExisted(filePath:string, panel:vscode.WebviewPanel) {
+    return new Promise((resolve, reject) => {
+      fs.access(filePath, (err) => {
+        if (err) {
+            panel.webview.postMessage({
+                Error: true,
+                ErrorPath: filePath
+            });
+
+        //   reject(false);
+        } else {
+          resolve(true);
+        }
+      })
+    })
+};
+
 /**
  * @description Get real path
  * @param file 
@@ -131,6 +148,10 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
             margin:0;
         }
 
+        #errorInput {
+            margin:0;
+        }
+
         #targetFvName {
             margin-left:2px;
         }
@@ -193,6 +214,13 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
             // revice message from vscode
             window.addEventListener('message', event => {
                 const message = event.data;
+                if (message.Error) {
+                    if (document.getElementById("errorInput")) {
+                        console.log('tips is exist')
+                    } else {
+                        layoutErrorTips()
+                    }
+                }
                 var file = message.resFile;
                 var sourceFileName = message.sourceFileName
 
@@ -241,16 +269,27 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                 deleteLiNode("#"+elementId)
                 createLayout(sourceFileName, file, sourceFileName.split(".").pop(), elementId, message.targetFvName, message.newFfsId)
 
-                var input = document.getElementById("input")
-                document.getElementById("menuBox").removeChild(input)
+                if (document.getElementById("input")) {
+                    var input = document.getElementById("input")
+                    document.getElementById("menuBox").removeChild(input)
+                }
+                if (document.getElementById("errorInput")) {
+                    var errorInput = document.getElementById("errorInput")
+                    document.getElementById("menuBox").removeChild(errorInput)
+                }
             });
 
             // add fv click
             $("#uploadfile").click(function() {
-                if (JuageHtmlNode()) {
+                if (document.getElementById("input")) {
                     var input = document.getElementById("input")
-                    document.getElementById("menuBox").removeChild(input)    
+                    document.getElementById("menuBox").removeChild(input)
                 }
+                if (document.getElementById("errorInput")) {
+                    var errorInput = document.getElementById("errorInput")
+                    document.getElementById("menuBox").removeChild(errorInput)
+                }
+
                 if (judageFileType()) {
                     var pDiv = document.createElement('p');
                     pDiv.id = "input"
@@ -304,7 +343,13 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                         if (document.getElementById("fvname").value && document.getElementById("ffspath").value && document.getElementById("OutputPathName").value) {
                             vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:"", targetFfsPath:document.getElementById("ffspath").value, outputfile:document.getElementById("OutputPathName").value, mode:"-a", command:""})
                         } else {
-                            layoutErrorTips()
+                            if (document.getElementById("errorInput")) {
+                                // var errorInput = document.getElementById("errorInput")
+                                // document.getElementById("menuBox").removeChild(errorInput)
+                                console.log('Tips is exist')
+                            } else {
+                                layoutErrorTips()
+                            }
                         }
                     }
                     document.getElementById('input').append(button)
@@ -317,9 +362,13 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
             })
 
             $("#delete").click(function (e) {
-                if (JuageHtmlNode()) {
+                if (document.getElementById("input")) {
                     var input = document.getElementById("input")
-                    document.getElementById("menuBox").removeChild(input)    
+                    document.getElementById("menuBox").removeChild(input)
+                }
+                if (document.getElementById("errorInput")) {
+                    var errorInput = document.getElementById("errorInput")
+                    document.getElementById("menuBox").removeChild(errorInput)
                 }
 
                 if (judageFileType()) {
@@ -394,7 +443,11 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                         if (fvName && ffsName && outputPath) {
                             vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:"", outputfile:document.getElementById("OutputPathName").value, mode:"-d",command:""})
                         } else {
-                            layoutErrorTips()
+                            if (document.getElementById("errorInput")) {
+                                console.log('Tips is exist')
+                            } else {
+                                layoutErrorTips()
+                            }
                         }
                     }
                     document.getElementById('input').append(button)
@@ -407,9 +460,13 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
             })
 
             $("#replace").click(function (e) {
-                if (JuageHtmlNode()) {
+                if (document.getElementById("input")) {
                     var input = document.getElementById("input")
-                    document.getElementById("menuBox").removeChild(input)    
+                    document.getElementById("menuBox").removeChild(input)
+                }
+                if (document.getElementById("errorInput")) {
+                    var errorInput = document.getElementById("errorInput")
+                    document.getElementById("menuBox").removeChild(errorInput)
                 }
 
                 if (judageFileType()) {
@@ -493,7 +550,11 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                         if (document.getElementById("fvname").value && document.getElementById("ffsname").value && document.getElementById("ffspath").value && document.getElementById("OutputPathName").value) {
                             vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:document.getElementById("ffspath").value, outputfile:document.getElementById("OutputPathName").value, mode:"-r", command:""})
                         } else {
-                            layoutErrorTips()
+                            if (document.getElementById("errorInput")) {
+                                console.log('Tips is exist')
+                            } else {
+                                layoutErrorTips()
+                            }
                         }
                     }
                     document.getElementById('input').append(button)
@@ -506,9 +567,13 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
             })
 
             $("#extract").click(function (e) {
-                if (JuageHtmlNode()) {
+                if (document.getElementById("input")) {
                     var input = document.getElementById("input")
-                    document.getElementById("menuBox").removeChild(input)    
+                    document.getElementById("menuBox").removeChild(input)
+                }
+                if (document.getElementById("errorInput")) {
+                    var errorInput = document.getElementById("errorInput")
+                    document.getElementById("menuBox").removeChild(errorInput)
                 }
 
                 if (judageFileType()) {
@@ -579,7 +644,11 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                         if (document.getElementById("fvname").value && document.getElementById("ffsname").value && document.getElementById("OutputPathName").value) {
                             vscode.postMessage({inputfile:'${filePath}', targetFvName:document.getElementById("fvname").value, targetFfsName:document.getElementById("ffsname").value, targetFfsPath:"", outputfile:document.getElementById("OutputPathName").value, mode:"-e",command:""})
                         } else {
-                            layoutErrorTips()
+                            if (document.getElementById("errorInput")) {
+                                console.log('Tips is exist')
+                            } else {
+                                layoutErrorTips()
+                            }
                         }
                     }
                     document.getElementById('input').append(button)
@@ -591,27 +660,18 @@ function getWebviewContent(outName?: string, jsonPath?: vscode.Uri, filePath?: s
                 }
             })
 
-            function JuageHtmlNode() {
-                if (document.getElementById("input")) {
-                    return true
-                }
-                return false
-            }
-
             function layoutErrorTips() {
-                // var input = document.getElementById("input")
-                // document.getElementById("menuBox").removeChild(input)
                 var pDiv = document.createElement('p');
-                pDiv.id = "input"
+                pDiv.id = "errorInput"
                 document.getElementById('menuBox').append(pDiv)
 
                 var hrDiv = document.createElement('hr');
                 hrDiv.id = "hr"
                 hrDiv.innerHTML = "<hr/>";
-                document.getElementById('input').append(hrDiv)        
+                document.getElementById('errorInput').append(hrDiv)
 
                 var tips = document.createElement("spwn")
-                document.getElementById("input").append(tips)
+                document.getElementById("errorInput").append(tips)
                 tips.innerHTML = "Input error, please try again !!!"
                 tips.style.backgroundColor = 'red'
             }
@@ -885,11 +945,21 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
                 if (path.isAbsolute(outputPath) === false) {
                     outputPath = path.join(path.dirname(inputFile), outputPath)
                 }
+                // Judage isexist of new ffs file.
+                if (message.targetFfsPath) {
+                var targetFfsPath = message.targetFfsPath
+                if (path.isAbsolute(targetFfsPath) === false) {
+                    targetFfsPath = path.join(path.dirname(message.inputfile), targetFfsPath)
+                }
+                // Check path of new ffs file.
+                const isExisted = await isFileExisted(targetFfsPath, panel);
+                }
+
                 var sourceFile = panel.webview.asWebviewUri(vscode.Uri.file(sourceFilePath)).toString()
                 var targetPath = path.join(context.extensionPath, `Layout_new_${path.basename(inputFile)}.json`)
                 tempFile.get(outName).push(targetPath)
                 var resFilePath = panel.webview.asWebviewUri(vscode.Uri.file(targetPath)).toString()
-                await generateJsonFile(targetPath, inputFile, message.mode, outputPath, message.targetFvName, message.targetFfsName, message.targetFfsPath)
+                await generateJsonFile(targetPath, inputFile, message.mode, outputPath, message.targetFvName, message.targetFfsName, targetFfsPath)
                 if (message.mode == "-e") {
                     var ffsName = path.basename(outputPath)
                     targetPath = path.join(path.dirname(path.dirname(__filename)), `Layout_${ffsName}.json`);
@@ -898,40 +968,33 @@ async function createPanel(context: vscode.ExtensionContext, outName:string, sou
                     await generateJsonFile(targetPath, outputPath, '-v')
                     panel.webview.postMessage({
                         sourcefile: sourceFile, 
-                        sourceFileName: path.basename(inputFile), 
+                        sourceFileName: path.basename(outputPath),
                         resFile: resFilePath, 
                         mode: message.mode, 
                         targetFvName: message.targetFvName, 
                         targetFfsName:message.targetFfsName, 
-                        targetFfsPath:message.targetFfsPath,
+                        targetFfsPath:targetFfsPath,
                         outputFile:outputPath
                     });
                 } else {
                     var newFfsId
                     if (message.mode == '-a' || message.mode == '-r') {
-                        fs.stat(message.targetFfsPath, function(err, stat){
-                            if (stat&&stat.isFile()){
-                                console.log("file path is realy");
-                            } else {
-                                vscode.window.showErrorMessage("New ffs file is not exist, Please check the input file path: " + message.targetFfsPath);
-                                return;
-                            }
-                        })
-                        var newFfsName = path.basename(message.targetFfsPath)
+                        // Read name of new ffs file.
+                        var newFfsName = path.basename(targetFfsPath)
                         var ffsJsonPath = path.join(path.dirname(path.dirname(__filename)), `Layout_${newFfsName}.json`);
                         tempFile.get(outName).push(ffsJsonPath)
-                        await generateJsonFile(ffsJsonPath, message.targetFfsPath, '-v')
+                        await generateJsonFile(ffsJsonPath, targetFfsPath, '-v')
                         var newFfsId = readJsonFile(ffsJsonPath)
                     }
                     // post message to webview
                     panel.webview.postMessage({
                         sourcefile: sourceFile,
-                        sourceFileName: path.basename(inputFile),
+                        sourceFileName: path.basename(outputPath),
                         resFile: resFilePath,
                         mode: message.mode,
                         targetFvName: message.targetFvName,
                         targetFfsName:message.targetFfsName,
-                        targetFfsPath:message.targetFfsPath,
+                        targetFfsPath:targetFfsPath,
                         newFfsId: newFfsId,
                         outputFile:outputPath
                     });
