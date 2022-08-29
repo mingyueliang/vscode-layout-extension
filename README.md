@@ -11,34 +11,15 @@ GUI of fmmt tool.
 
 ## Usage
 * Right click FD, FV, FFS, SEC files and select view layout
-    <video height="240" autoplay="autoplay" controls>
-        <source src="./markdown/view-layout.mp4" type="video/mp4">
-    </video>
-
+![view](/vscode-layout-extension/markdown/view-layout.gif)
 * Button: add ffs
-
-    <video height="240" autoplay="autoplay" controls>
-        <source src="./markdown/add_ffs.mp4" type="video/mp4">
-    </video>
-
+![view](/vscode-layout-extension/markdown/add-ffs.gif)
 * Button: delete ffs
-
-    <video height="240" autoplay="autoplay" controls>
-        <source src="./markdown/delete_ffs.mp4" type="video/mp4">
-    </video>
-
+![view](/vscode-layout-extension/markdown/delete-ffs.gif)
 * Button: replace ffs
- 
-    <video height="240" autoplay="autoplay" controls>
-        <source src="./markdown/replace_ffs.mp4" type="video/mp4">
-    </video>
-
+![view](/vscode-layout-extension/markdown/replace-ffs.gif)
 * Button: extract ffs
- 
-    <video height="240" autoplay="autoplay" controls>
-        <source src="./markdown/extract_ffs.mp4" type="video/mp4">
-    </video>
-
+![view](/vscode-layout-extension/markdown/extract-ffs.gif)
 
 * Double clicking each bar with the mouse is a display and hide operation
 
@@ -47,5 +28,6 @@ GUI of fmmt tool.
 * Go to GitHub release and download the latest version of vsix.
 * vscode command:
   > Extensions: Install from VSIX
-
-
+![view](/vscode-layout-extension/markdown/install-1.gif)
+* Right click vsix install plug-in
+![view](/vscode-layout-extension/markdown/install.gif)
