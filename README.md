@@ -11,7 +11,7 @@ GUI of fmmt tool.
 
 ## Usage
 * Right click FD, FV, FFS, SEC files and select view layout
-![view](/vscode-layout-extension/markdown/view-layout.gif)
+![view](https://github.com/mingyueliang/vscode-layout-extension/blob/main/markdown/view-layout.gif)
 * Button: add ffs
 ![view](/vscode-layout-extension/markdown/add-ffs.gif)
 * Button: delete ffs
